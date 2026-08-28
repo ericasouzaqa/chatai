@@ -57,3 +57,11 @@ O commit `f00cff3e62ec37970ee20e5603a5c1610e70a293` foi enviado ao `main`. O CI 
 Após o deploy, `https://ericasouzaqa.github.io/chatai/` respondeu HTTP 200 com o título esperado e os marcadores da versão refatorada. Os assets `assets/css/style.css` e `assets/js/app.js` responderam HTTP 200. Chromium headless gerou captura publicada sem página de erro. O teste funcional ampliado executado diretamente na URL publicada passou: carregamento, cards, teclado Enter/espaço, todos os sintomas, fechamento de veredito, score, feedback e bloqueio de repetição.
 
 A URL que estava em 404 antes da correção agora está comprovadamente publicada.
+
+## Endurecimento final
+
+A versão final removeu todos os estilos inline e adicionou CSP via meta tag, permitindo somente scripts locais, estilos locais/Google Fonts, fontes do Google e conexões próprias. O JavaScript não usa sinks perigosos nem integrações simuladas.
+
+A release pública `1.1.0` foi corrigida para declarar o escopo estático real e os limites da entrega, removendo a promessa de scripts, dataset dourado e monitoramento inexistentes.
+
+A captura final publicada mostra o cabeçalho `v1.2.0 · guia interativo`, o título ajustado e o layout desktop preservado. Não há aplicação desktop neste repositório.
