@@ -6,7 +6,7 @@ Trilha educativa estática para pessoas iniciantes em **Quality Assurance (QA)**
 
 ## Objetivo
 
-A trilha começa pelos fundamentos de IA generativa e avança até uma estratégia de QA. O material usa linguagem introdutória e, para cada conceito central, responde: **o que é, para que serve, exemplo simples, onde pode falhar, como um QA pensa e o que testar**.
+A trilha começa pelos fundamentos de QA, passa por uma explicação visual de aplicações web e ensina Chrome DevTools antes de avançar para IA generativa e estratégia de QA. O material usa linguagem introdutória e, para cada conceito central, responde: **o que é, para que serve, exemplo simples, onde pode falhar, como um QA pensa e o que testar**.
 
 A sequência também diferencia uma resposta plausível de uma resposta correta, reforça a necessidade de evidência, explica quando registrar um GAP e apresenta preservação da fonte, OCR como recurso auxiliar e revisão humana quando a confiança for baixa.
 
@@ -14,21 +14,21 @@ A sequência também diferencia uma resposta plausível de uma resposta correta,
 
 | Etapa | Conteúdo |
 | --- | --- |
-| 01 | Fundamentos de IA generativa e diferença entre resposta plausível e correta |
-| 02 | Fluxo conceitual de um chatbot: usuário, interface, prompt, modelo, RAG, Tool, middleware, Gateway e sistemas externos |
-| 03 | Como transformar requisitos em testes de prompt |
-| 04 | RAG, fonte, evidência e GAP |
-| 05 | MCP e Tools |
-| 06 | Middleware e Gateway |
-| 07 | Amazon Bedrock, Playground e parâmetros de inferência |
-| 08 | Observabilidade, OCR auxiliar, revisão humana e preservação da fonte |
-| 09 | Playwright para testes de interface, com seus limites |
-| 10 | Visão prática de projeto e estratégia de QA em cinco camadas |
-| 11–16 | Glossário, arquitetura, triagem e exercícios interativos |
+| 01 | Fundamentos de QA: qualidade, papel do QA, teste, validação, inspeção e prevenção |
+| 02 | Aplicação web: navegador, front-end, back-end, API, serviços, dados, requisições e respostas |
+| 03 | Chrome DevTools: Elements, Console, Network, Application, Performance e Lighthouse, com comandos práticos |
+| 04 | Fundamentos de IA generativa e diferença entre resposta plausível e correta |
+| 05 | Fluxo conceitual de um chatbot: usuário, interface, prompt, modelo, RAG, Tool, middleware, Gateway e sistemas externos |
+| 06 | Como transformar requisitos em testes de prompt |
+| 07 | RAG, fonte, evidência e GAP |
+| 08 | MCP e Tools |
+| 09 | Middleware e Gateway |
+| 10 | Amazon Bedrock, Playground e parâmetros de inferência |
+| 11–13 | Observabilidade, Playwright, estratégia de QA, glossário, triagem e exercícios interativos |
 
 ## Interações existentes
 
-A página contém um índice navegável da trilha, glossário com oito cards, explicações em cards, fluxo conceitual, painel de triagem com sete sintomas, quatro perguntas de verdadeiro ou falso e quatro cenários práticos com feedback e placar local.
+A página contém um índice navegável da trilha, aulas introdutórias de QA e aplicações web, fluxo de requisição e resposta, painéis locais do Chrome DevTools, comandos práticos de Console, um mini formulário para inspeção, glossário com oito cards, painel de triagem, perguntas e cenários práticos com feedback e placar local.
 
 A pontuação existe somente em memória durante a sessão. Recarregar a página reinicia o placar. Os cards interativos funcionam por clique, Enter e espaço, com foco visível e estados ARIA.
 
@@ -60,7 +60,7 @@ Acesse `http://localhost:4173/`. Depois do primeiro carregamento, a página não
 | --- | --- |
 | `index.html` | Estrutura semântica, trilha e conteúdo educativo |
 | `assets/css/style.css` | Estilos locais, responsividade e foco acessível |
-| `assets/js/app.js` | Interações locais do glossário, triagem e exercícios |
+| `assets/js/app.js` | Interações locais do glossário, triagem, exercícios e abas do DevTools |
 | `tests/app.test.js` | Verificações estáticas de integridade e escopo |
 | `.github/workflows/ci.yml` | Testes e build em alterações |
 | `.github/workflows/deploy-pages.yml` | Publicação estática no GitHub Pages |

@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { execFileSync } = require('node:child_process');
 const test = require('node:test');
 
 const root = path.resolve(__dirname, '..');
@@ -8,10 +9,10 @@ const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const cssPath = path.join(root, 'assets', 'css', 'style.css');
 const jsPath = path.join(root, 'assets', 'js', 'app.js');
 const js = fs.readFileSync(jsPath, 'utf8');
-
+const css = fs.readFileSync(cssPath, 'utf8');
 const matches = (pattern, content = html) => [...content.matchAll(pattern)].map((match) => match[1]);
 
- test('documento tem estrutura base e um único carregamento de script', () => {
+test('documento tem estrutura base e um único carregamento de script', () => {
   assert.match(html, /^<!doctype html>/i);
   assert.match(html, /<html lang="pt-BR">/);
   assert.match(html, /<title>[^<]+<\/title>/);
@@ -28,6 +29,7 @@ test('assets referenciados existem e o JavaScript passa por sintaxe externa', ()
   assert.equal(fs.existsSync(cssPath), true);
   assert.equal(fs.existsSync(jsPath), true);
   assert.match(js, /document\.querySelectorAll/);
+  assert.doesNotThrow(() => execFileSync(process.execPath, ['--check', jsPath]));
 });
 
 test('glossário é navegável por teclado e possui estados ARIA', () => {
@@ -82,4 +84,259 @@ test('produto não simula integrações que não existem', () => {
   assert.doesNotMatch(html, /localStorage|sessionStorage|document\.cookie/);
   assert.doesNotMatch(js, /innerHTML|outerHTML|eval\(|new Function/);
   assert.match(html, /Model Context Protocol/);
+});
+
+test('trilha inicial cobre QA, aplicação web e DevTools', () => {
+  for (const id of ['qa-fundamentals', 'web-app-basics', 'devtools-qa']) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+  for (const phrase of ['qualidade de software', 'papel do QA', 'teste', 'validação', 'inspeção', 'prevenção', 'navegador', 'front-end', 'back-end', 'API', 'banco de dados', 'requisição', 'resposta']) {
+    assert.match(html, new RegExp(phrase, 'i'));
+  }
+  assert.match(html, /Usuário.*Navegador.*Interface.*API.*Serviços.*Dados.*Resposta/s);
+});
+
+test('DevTools apresenta áreas e comandos práticos', () => {
+  for (const area of ['Elements', 'Console', 'Network', 'Application', 'Performance', 'Lighthouse']) {
+    assert.match(html, new RegExp(area));
+  }
+  for (const command of [
+    "document.querySelectorAll('input')",
+    "document.querySelectorAll('button')",
+    "document.querySelectorAll('input,select,textarea')",
+    "document.querySelectorAll('select')",
+    "document.body.innerText.includes('Salvar')",
+  ]) {
+    assert.ok(html.includes(command) || html.includes(command.replaceAll('>', '&gt;')));
+  }
+  assert.equal((html.match(/class="command-item"/g) || []).length, 5);
+  assert.match(js, /devtools-tab/);
+  assert.match(js, /getElementById\(panelId\)/);
+});
+
+test('novos controles permanecem locais e acessíveis', () => {
+  assert.equal((html.match(/<button(?! type="button")/g) || []).length, 0);
+  assert.match(html, /id="sample-name"[^>]*required/);
+  assert.match(html, /aria-labelledby="mini-lab-title"/);
+  assert.match(css, /devtools-tab:focus-visible/);
+  assert.match(css, /@media \(max-width:700px\)/);
+  assert.doesNotMatch(html, /cdn\.|unpkg|jsdelivr|cdnjs/i);
+  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|WebSocket|EventSource|localStorage|sessionStorage/);
+});
+
+test('versão e documentação refletem a evolução', () => {
+  const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  assert.equal(packageJson.version, '1.3.0');
+  assert.match(packageJson.description, /sistemas web e IA/i);
+  assert.match(readme, /Chrome DevTools/);
+  assert.match(readme, /Fundamentos de QA/);
+});
+
+test('o fluxo HTTP didático possui requisição e resposta', () => {
+  assert.match(html, /POST \/pedidos/);
+  assert.match(html, /201 Created/);
+  assert.match(html, /REQUISIÇÃO/);
+  assert.match(html, /RESPOSTA/);
+});
+
+test('o novo formulário não possui ação externa', () => {
+  assert.match(html, /<form class="sample-form" onsubmit="return false"/);
+  assert.doesNotMatch(html, /<form[^>]+action=/i);
+});
+
+test('o novo fluxo não remove os módulos educativos existentes', () => {
+  for (const id of ['glossary', 'layers', 'pipeline', 'arch', 'triage', 'practice']) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+});
+
+test('a arquitetura continua sem backend, banco, login e autenticação', () => {
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  assert.match(readme, /não possui backend, banco, login, autenticação/);
+  assert.match(html, /não acessa sistemas externos/);
+  assert.doesNotMatch(js, /fetch|XMLHttpRequest|WebSocket|EventSource/);
+});
+
+test('o fluxo inicial aparece no índice em ordem', () => {
+  assert.match(html, /01 · Fundamentos de QA/);
+  assert.match(html, /02 · Aplicação web/);
+  assert.match(html, /03 · Chrome DevTools/);
+  assert.ok(html.indexOf('id="qa-fundamentals"') < html.indexOf('id="web-app-basics"'));
+  assert.ok(html.indexOf('id="web-app-basics"') < html.indexOf('id="devtools-qa"'));
+});
+
+ test('a página mantém a publicação estática documentada', () => {
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  assert.match(readme, /GitHub Pages/);
+  assert.match(readme, /python3 -m http.server 4173/);
+  assert.equal(fs.existsSync(path.join(root, '.github/workflows/deploy-pages.yml')), true);
+});
+
+ test('a CSP continua restrita e os assets continuam locais', () => {
+  assert.match(html, /default-src 'self'/);
+  assert.match(html, /script-src 'self'/);
+  assert.match(html, /style-src 'self'/);
+  assert.match(html, /connect-src 'self'/);
+  assert.doesNotMatch(css, /@import|url\s*\(/);
+});
+
+ test('as seis abas apontam para painéis existentes', () => {
+  const ids = matches(/data-panel="([^"]+)"/g);
+  ids.forEach((id) => assert.match(html, new RegExp(`id="${id}"`)));
+  assert.equal(ids.length, 6);
+  assert.match(html, /class="devtools-panel active" id="elements-panel"/);
+});
+
+ test('o JavaScript novo apenas alterna estado local', () => {
+  assert.match(js, /querySelectorAll\('\.devtools-tab'\)/);
+  assert.match(js, /classList\.remove\('active'\)/);
+  assert.match(js, /classList\.add\('active'\)/);
+  assert.doesNotMatch(js, /location\.hash|history\.pushState/);
+});
+
+ test('os cinco comandos solicitados estão em blocos de código', () => {
+  assert.equal((html.match(/class="command-item"/g) || []).length, 5);
+  assert.match(html, /innerText\.trim/);
+  assert.match(html, /c\.required/);
+  assert.match(html, /s\.options/);
+  assert.match(html, /innerText\.includes\('Salvar'\)/);
+});
+
+ test('o mini laboratório tem semântica para iniciantes', () => {
+  assert.match(html, /for="sample-name"/);
+  assert.match(html, /for="sample-type"/);
+  assert.match(html, /<button type="button" class="sample-button">Salvar exemplo/);
+  assert.match(html, /Você não precisa ser programador/);
+});
+
+ test('o conteúdo novo ensina prevenção e evidência', () => {
+  assert.match(html, /não espere o defeito aparecer/);
+  assert.match(html, /evidência objetiva/);
+  assert.match(html, /antes do desenvolvimento/);
+  assert.match(html, /não cole dados sensíveis/i);
+});
+
+ test('o JavaScript continua sem dependências de rede ou persistência', () => {
+  assert.doesNotMatch(js, /fetch|XMLHttpRequest|WebSocket|EventSource|localStorage|sessionStorage|document\.cookie/);
+  assert.doesNotThrow(() => execFileSync(process.execPath, ['--check', jsPath]));
+});
+
+ test('a implementação preserva a arquitetura estática atual', () => {
+  assert.equal(fs.existsSync(path.join(root, 'index.html')), true);
+  assert.equal(fs.existsSync(cssPath), true);
+  assert.equal(fs.existsSync(jsPath), true);
+  assert.equal(fs.existsSync(path.join(root, 'server')), false);
+  const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+  assert.equal(packageJson.dependencies, undefined);
+});
+
+ test('o build estático continua executável', () => {
+  assert.doesNotThrow(() => execFileSync('npm', ['run', 'build'], { cwd: root, stdio: 'pipe' }));
+});
+
+ test('o documento continua sem scripts e estilos inline', () => {
+  assert.equal((html.match(/<script\b/gi) || []).length, 1);
+  assert.equal((html.match(/<style\b/gi) || []).length, 0);
+  assert.doesNotMatch(html, /\sstyle=/i);
+});
+
+ test('a documentação registra o escopo sem backend e offline', () => {
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  assert.match(readme, /HTML estática com CSS e JavaScript locais/);
+  assert.match(readme, /não possui backend, banco, login, autenticação/);
+  assert.match(readme, /Execução local e offline/);
+});
+
+ test('o fluxo web tem exatamente sete nós e seis setas', () => {
+  const flow = html.match(/class="web-flow"[\s\S]*?<\/div>/)?.[0] || '';
+  assert.equal((flow.match(/class="flow-node/g) || []).length, 7);
+  assert.equal((flow.match(/<i>→<\/i>/g) || []).length, 6);
+});
+
+ test('a trilha inicial mantém o foco educativo em português', () => {
+  assert.match(html, /Qualidade começa antes do primeiro clique/);
+  assert.match(html, /Veja o caminho de uma ação até a resposta/);
+  assert.match(html, /Observe o que a tela não conta sozinha/);
+  assert.match(html, /Siga a trilha em ordem/);
+});
+
+ test('a versão visual e a versão do pacote estão alinhadas', () => {
+  assert.match(html, /v1\.3\.0/);
+  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.3\.0"/);
+});
+
+ test('a nova trilha usa somente âncoras locais', () => {
+  for (const id of ['qa-fundamentals', 'web-app-basics', 'devtools-qa']) {
+    assert.match(html, new RegExp(`href="#${id}"`));
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+});
+
+ test('o fluxo conceitual web está explicitamente identificado', () => {
+  assert.match(html, /aria-label="Fluxo conceitual de uma aplicação web"/);
+  assert.match(html, /Usuário.*Navegador.*Interface.*API.*Serviços.*Dados.*Resposta/s);
+});
+
+ test('o conteúdo do DevTools cobre investigação e segurança', () => {
+  assert.match(html, /conjunto de ferramentas do navegador/);
+  assert.match(html, /encontrar pistas/);
+  assert.match(html, /Não cole dados sensíveis/);
+  assert.match(html, /Um score não substitui exploração manual/);
+});
+
+ test('o mini laboratório não submete nem persiste informações', () => {
+  assert.match(html, /onsubmit="return false"/);
+  assert.doesNotMatch(js, /localStorage|sessionStorage|document\.cookie/);
+});
+
+ test('a nova trilha mantém o conteúdo antigo de IA', () => {
+  assert.match(html, /IA generativa/);
+  assert.match(html, /RAG/);
+  assert.match(html, /MCP/);
+  assert.match(html, /Playwright/);
+});
+
+ test('a página mantém a responsividade visual', () => {
+  assert.match(css, /@media/);
+  assert.match(css, /max-width:700px/);
+  assert.match(css, /focus-visible/);
+});
+
+ test('o índice aponta para os três módulos obrigatórios', () => {
+  const pathSection = html.match(/id="learning-path"[\s\S]*?<\/section>/)?.[0] || '';
+  assert.match(pathSection, /01 · Fundamentos de QA/);
+  assert.match(pathSection, /02 · Aplicação web/);
+  assert.match(pathSection, /03 · Chrome DevTools/);
+});
+
+ test('a página continua compatível com GitHub Pages', () => {
+  assert.doesNotMatch(html, /<script[^>]+https?:/i);
+  assert.doesNotMatch(html, /<link[^>]+https?:/i);
+  assert.match(html, /assets\/css\/style\.css/);
+  assert.match(html, /assets\/js\/app\.js/);
+});
+
+ test('o conteúdo ensina o fluxo de requisição e resposta', () => {
+  assert.match(html, /O navegador envia uma intenção/);
+  assert.match(html, /A aplicação devolve status/);
+  assert.match(html, /status, o formato e a mensagem/);
+});
+
+ test('o conteúdo ensina o papel preventivo do QA', () => {
+  assert.match(html, /ajuda o time a prevenir problemas/);
+  assert.match(html, /participa cedo/);
+  assert.match(html, /comportamento verificável/);
+});
+
+ test('o conteúdo de DevTools mantém os seletores pedidos', () => {
+  assert.match(html, /querySelectorAll\('input'\)/);
+  assert.match(html, /querySelectorAll\('button'\)/);
+  assert.match(html, /querySelectorAll\('input,select,textarea'\)/);
+  assert.match(html, /querySelectorAll\('select'\)/);
+  assert.match(html, /body\.innerText\.includes\('Salvar'\)/);
+});
+
+ test('não foi criado arquivo temporário de migração', () => {
+  assert.equal(fs.existsSync(path.join(root, 'update_guide.py')), false);
 });

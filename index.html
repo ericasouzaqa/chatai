@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self';" />
-    <title>Guia Definitivo de QA & Testes — Chatbots de IA</title>
+    <title>Guia de QA para Sistemas Web e IA — do zero</title>
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <div class="strip">
       <div class="wrap">
         <div class="strip-id">
-          <span class="dot"></span> PAINEL DE QA & TESTES · IA
+          <span class="dot"></span> GUIA DE QA · WEB + IA
         </div>
-        <div class="strip-id">v1.2.0 · guia interativo</div>
+        <div class="strip-id">v1.3.0 · trilha para iniciantes</div>
       </div>
     </div>
 
@@ -25,13 +25,12 @@
       <section class="hero hero-first">
         <div class="eyebrow">Guia prático & documentação de QA</div>
         <h1>
-          Prompt, MCP, Tool, RAG & Regex:
-          <span>explicado do zero à triagem prática.</span>
+          QA para sistemas Web e IA:
+          <span>aprenda a investigar, testar e explicar problemas.</span>
         </h1>
         <p class="hero-sub">
-          Abordagem unificada unindo conceitos práticos de triagem com a
-          metodologia de pipeline de testes em cinco camadas para sistemas de
-          Inteligência Artificial Generativa.
+          Uma aula interativa para quem está começando: entenda a aplicação, observe
+          o comportamento, escreva testes e reúna evidências antes de concluir.
         </p>
 
         <div class="caveat-banner">
@@ -46,8 +45,8 @@
             <circle cx="12" cy="16" r="0.6" fill="#9384DE" />
           </svg>
           <p>
-            Clique, interaja, valide o pipeline de QA e teste seus conhecimentos
-            nos cenários práticos ao final.
+            Siga a trilha em ordem. Cada etapa explica um conceito, mostra um exemplo e
+            convida você a pensar como QA, sem conectar este guia a nenhum sistema real.
           </p>
         </div>
       </section>
@@ -62,9 +61,12 @@
           </p>
         </div>
         <div class="path-grid">
-          <a href="#fundamentals">01 · Fundamentos</a>
-          <a href="#chatbot-flow">02 · Chatbot</a>
-          <a href="#prompt-testing">03 · Testes de prompt</a>
+          <a href="#qa-fundamentals">01 · Fundamentos de QA</a>
+          <a href="#web-app-basics">02 · Aplicação web</a>
+          <a href="#devtools-qa">03 · Chrome DevTools</a>
+          <a href="#fundamentals">04 · Qualidade em IA</a>
+          <a href="#chatbot-flow">05 · Fluxo de chatbot</a>
+          <a href="#prompt-testing">06 · Testes de prompt</a>
           <a href="#rag-lesson">04 · RAG</a>
           <a href="#mcp-tools">05 · MCP e Tools</a>
           <a href="#middleware-gateway">06 · Middleware e Gateway</a>
@@ -72,6 +74,96 @@
           <a href="#observability-lesson">08 · Evidência e observabilidade</a>
           <a href="#playwright-lesson">09 · Playwright</a>
           <a href="#pipeline">10 · Estratégia de QA</a>
+        </div>
+      </section>
+
+      <section id="qa-fundamentals" class="qa-track-start">
+        <div class="sec-head">
+          <div class="sec-eyebrow">01 — Fundamentos de QA</div>
+          <h2>Qualidade começa antes do primeiro clique</h2>
+          <p class="sec-desc">QA significa Quality Assurance, ou garantia da qualidade. A pessoa de QA ajuda o time a prevenir problemas, encontrar riscos e verificar se o produto atende ao que foi combinado.</p>
+        </div>
+        <div class="concept-grid concept-grid-3">
+          <article class="concept-card lesson-accent">
+            <div class="lesson-label">A ideia central</div>
+            <h3>Qualidade de software</h3>
+            <p><b>Qualidade</b> não é apenas “não ter erro”. É entregar uma experiência que funciona, é compreensível, segura, acessível e adequada ao objetivo de quem usa.</p>
+            <div class="qa-row"><b>Exemplo</b><span>Um botão pode executar a ação correta e ainda ter baixa qualidade se estiver invisível no celular ou não explicar o erro.</span></div>
+            <div class="qa-row"><b>Como pensar</b><span>Pergunte: “o usuário consegue completar a tarefa e entender o que aconteceu?”</span></div>
+          </article>
+          <article class="concept-card lesson-accent">
+            <div class="lesson-label">Papel do QA</div>
+            <h3>Investigar e prevenir</h3>
+            <p>QA não é a pessoa que “só procura defeitos” nem a última barreira antes da publicação. Ela participa cedo, faz perguntas, identifica riscos e ajuda a tornar o comportamento verificável.</p>
+            <div class="qa-row"><b>Na prática</b><span>Entender o requisito, explorar o produto, criar cenários, registrar evidências e conversar com o time.</span></div>
+            <div class="qa-row"><b>Atitude</b><span>Ser curioso sem culpar pessoas: o foco é o comportamento do sistema e o impacto para o usuário.</span></div>
+          </article>
+          <article class="concept-card lesson-accent">
+            <div class="lesson-label">Três verbos</div>
+            <h3>Teste, validação e inspeção</h3>
+            <p><b>Teste</b> executa o sistema e observa o resultado. <b>Validação</b> pergunta se estamos construindo algo útil para a necessidade real. <b>Inspeção</b> examina requisitos, código, telas ou evidências sem necessariamente executar o produto.</p>
+            <div class="qa-row"><b>Prevenção</b><span>Encontrar uma ambiguidade no requisito antes do desenvolvimento costuma ser mais simples do que descobrir o problema depois da entrega.</span></div>
+          </article>
+        </div>
+        <div class="callout prevention-callout"><b>Regra para começar:</b> não espere o defeito aparecer. Leia o requisito, imagine como ele pode falhar e combine uma evidência objetiva para confirmar a qualidade.</div>
+      </section>
+
+      <section id="web-app-basics">
+        <div class="sec-head">
+          <div class="sec-eyebrow">02 — Como funciona uma aplicação web</div>
+          <h2>Veja o caminho de uma ação até a resposta</h2>
+          <p class="sec-desc">Você não precisa ser programador para investigar uma tela. Basta separar as partes e perguntar onde a informação nasceu, por onde passou e onde foi exibida.</p>
+        </div>
+        <div class="web-flow" aria-label="Fluxo conceitual de uma aplicação web">
+          <span class="flow-node flow-user">Usuário</span><i>→</i><span class="flow-node">Navegador</span><i>→</i><span class="flow-node">Interface</span><i>→</i><span class="flow-node flow-api">API</span><i>→</i><span class="flow-node">Serviços</span><i>→</i><span class="flow-node flow-data">Dados</span><i>→</i><span class="flow-node flow-response">Resposta</span>
+        </div>
+        <div class="concept-grid concept-grid-3">
+          <article class="lesson-card"><div class="lesson-label">Onde você vê</div><h3>Navegador e front-end</h3><p>O <b>navegador</b> interpreta HTML, CSS e JavaScript e mostra a página. O <b>front-end</b> é a parte com a qual a pessoa interage: campos, botões, menus e mensagens.</p><p><b>Pergunta de QA:</b> a interface mostra corretamente o estado de carregamento, sucesso e erro?</p></article>
+          <article class="lesson-card"><div class="lesson-label">Onde a ação viaja</div><h3>Back-end e API</h3><p>O <b>back-end</b> processa regras no servidor. Uma <b>API</b> é um contrato de comunicação: recebe uma requisição, valida dados e devolve uma resposta, muitas vezes em JSON.</p><p><b>Pergunta de QA:</b> o status, o formato e a mensagem da resposta combinam com o que a tela apresenta?</p></article>
+          <article class="lesson-card"><div class="lesson-label">Onde a informação fica</div><h3>Serviços e banco</h3><p>Serviços podem calcular, autenticar ou conversar com outros sistemas. O <b>banco de dados</b> armazena informações para serem consultadas ou alteradas.</p><p><b>Pergunta de QA:</b> o dado foi salvo uma vez, com o valor correto, e continua correto ao consultar de novo?</p></article>
+        </div>
+        <div class="request-response-grid">
+          <article class="request-card"><span class="http-label">REQUISIÇÃO</span><code>POST /pedidos<br>{ "produto": "livro", "quantidade": 1 }</code><p>O navegador envia uma intenção com método, endereço e dados.</p></article>
+          <div class="request-arrow" aria-hidden="true">⇄</div>
+          <article class="response-card"><span class="http-label">RESPOSTA</span><code>201 Created<br>{ "id": 42, "status": "criado" }</code><p>A aplicação devolve status, dados ou uma explicação de erro.</p></article>
+        </div>
+      </section>
+
+      <section id="devtools-qa">
+        <div class="sec-head">
+          <div class="sec-eyebrow">03 — Chrome DevTools para QA</div>
+          <h2>Observe o que a tela não conta sozinha</h2>
+          <p class="sec-desc">DevTools é um conjunto de ferramentas do navegador para inspecionar a interface, acompanhar mensagens, observar requisições e encontrar pistas. Os exemplos abaixo são comandos para estudo: este guia não executa nem coleta dados.</p>
+        </div>
+        <div class="devtools-tabs" role="list" aria-label="Áreas do Chrome DevTools">
+          <button type="button" class="devtools-tab active" data-panel="elements-panel">Elements</button>
+          <button type="button" class="devtools-tab" data-panel="console-panel">Console</button>
+          <button type="button" class="devtools-tab" data-panel="network-panel">Network</button>
+          <button type="button" class="devtools-tab" data-panel="application-panel">Application</button>
+          <button type="button" class="devtools-tab" data-panel="performance-panel">Performance</button>
+          <button type="button" class="devtools-tab" data-panel="lighthouse-panel">Lighthouse</button>
+        </div>
+        <div class="devtools-panels">
+          <article class="devtools-panel active" id="elements-panel"><h3>Elements — o que existe na tela?</h3><p>Inspecione um elemento para conferir texto, atributos, estados, hierarquia e estilos aplicados. Procure nomes acessíveis, campos obrigatórios e mensagens associadas.</p><div class="qa-check"><b>Checklist</b><span>O elemento tem um nome compreensível? O estado desabilitado é visível? O HTML combina com a intenção?</span></div></article>
+          <article class="devtools-panel" id="console-panel"><h3>Console — o navegador registrou algo?</h3><p>Use o Console para executar pequenas consultas e observar erros JavaScript, avisos e valores. Leia a mensagem inteira antes de concluir que ela explica o defeito.</p><div class="qa-check"><b>Boa prática</b><span>Registre a página, o passo realizado, a mensagem e o horário aproximado. Não cole dados sensíveis.</span></div></article>
+          <article class="devtools-panel" id="network-panel"><h3>Network — a requisição foi e voltou?</h3><p>Recarregue a página e observe requisições, método, status, tempo, payload e resposta. Um erro visual pode ser causado por 4xx, 5xx, timeout ou resposta válida renderizada incorretamente.</p><div class="qa-check"><b>Compare</b><span>O que a API respondeu versus o que o front-end mostrou.</span></div></article>
+          <article class="devtools-panel" id="application-panel"><h3>Application — que dados o navegador mantém?</h3><p>Confira cookies, armazenamento local, sessão, cache e service workers quando isso fizer parte do sistema. Use a área para entender o estado do navegador, não para apagar dados sem registrar o impacto.</p><div class="qa-check"><b>Pergunta</b><span>O comportamento muda porque o sistema mudou ou porque o navegador reutilizou um estado antigo?</span></div></article>
+          <article class="devtools-panel" id="performance-panel"><h3>Performance — em que momento ficou lento?</h3><p>Grave uma interação e procure tarefas longas, bloqueios e mudanças inesperadas. Descreva o cenário com dispositivo, página e ação; “está lento” ainda não é evidência suficiente.</p><div class="qa-check"><b>Observe</b><span>Tempo de carregamento, resposta ao clique e se a tela fica utilizável enquanto trabalha.</span></div></article>
+          <article class="devtools-panel" id="lighthouse-panel"><h3>Lighthouse — uma avaliação orientativa</h3><p>Use a auditoria como ponto de partida para desempenho, acessibilidade, boas práticas e SEO. Um score não substitui exploração manual nem prova que todos os usuários estão bem atendidos.</p><div class="qa-check"><b>Lembrete</b><span>Transforme o achado em hipótese, reproduza o cenário e anexe evidência verificável.</span></div></article>
+        </div>
+        <div class="devtools-commands">
+          <div class="command-heading"><div><span class="lesson-label">Console em ação</span><h3>Comandos práticos para começar</h3></div><p>Abra o DevTools com <kbd>F12</kbd> ou <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>. Cole um comando por vez no Console.</p></div>
+          <div class="command-list">
+            <article class="command-item"><span class="command-number">01</span><code>document.querySelectorAll('input')</code><p>Conta e localiza todos os campos de entrada.</p></article>
+            <article class="command-item"><span class="command-number">02</span><code>[...document.querySelectorAll('button')].map(b =&gt; b.innerText.trim())</code><p>Lista o texto visível dos botões.</p></article>
+            <article class="command-item"><span class="command-number">03</span><code>[...document.querySelectorAll('input,select,textarea')].map(c =&gt; ({<br>  tipo:c.type, nome:c.name, id:c.id, obrigatorio:c.required<br>}))</code><p>Ajuda a revisar campos e obrigatoriedade.</p></article>
+            <article class="command-item"><span class="command-number">04</span><code>[...document.querySelectorAll('select')].map(s =&gt; ({<br>  campo:s.name || s.id,<br>  opcoes:[...s.options].map(o =&gt; o.text)<br>}))</code><p>Mostra os campos de seleção e suas opções.</p></article>
+            <article class="command-item"><span class="command-number">05</span><code>document.body.innerText.includes('Salvar')</code><p>Verifica se o texto “Salvar” aparece no conteúdo visível.</p></article>
+          </div>
+        </div>
+        <div class="mini-lab" aria-labelledby="mini-lab-title">
+          <div><span class="lesson-label">Mini laboratório visual</span><h3 id="mini-lab-title">Inspecione mentalmente este formulário</h3><p>Antes de abrir o DevTools, observe os sinais de qualidade. O campo com asterisco é obrigatório? O botão explica a ação? A mensagem de erro diz como corrigir?</p></div>
+          <form class="sample-form" onsubmit="return false"><label for="sample-name">Nome <span aria-hidden="true">*</span></label><input id="sample-name" name="nome" required placeholder="Digite seu nome"><label for="sample-type">Tipo de solicitação</label><select id="sample-type" name="tipo"><option>Escolha uma opção</option><option>Dúvida</option><option>Problema</option></select><button type="button" class="sample-button">Salvar exemplo</button></form>
         </div>
       </section>
 

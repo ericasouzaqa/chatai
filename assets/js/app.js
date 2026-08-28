@@ -94,3 +94,16 @@ document.querySelectorAll('.quiz-opts').forEach((group) => {
     button.addEventListener('click', () => markAnswer(buttons, button, answer, feedback));
   });
 });
+
+
+// Trilha 03: alternância local entre painéis do DevTools.
+document.querySelectorAll('.devtools-tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const panelId = tab.dataset.panel;
+    document.querySelectorAll('.devtools-tab').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('.devtools-panel').forEach((panel) => panel.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = panelId ? document.getElementById(panelId) : null;
+    if (panel) panel.classList.add('active');
+  });
+});
