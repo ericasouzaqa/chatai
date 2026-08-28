@@ -9,1073 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --bg: #12151b;
-        --panel: #1a1f27;
-        --panel-2: #212832;
-        --border: #2a313d;
-        --border-soft: #242b35;
-        --text: #edeff3;
-        --muted: #8b93a3;
-        --muted-2: #5e6674;
-
-        --prompt: #e8a33d;
-        --prompt-dim: #3a2f1c;
-        --mcp: #47b8ac;
-        --mcp-dim: #1a2f2c;
-        --tool: #e8593f;
-        --tool-dim: #361f1a;
-        --rag: #5b93e0;
-        --rag-dim: #1b2a40;
-        --front: #7c9cc4;
-        --front-dim: #1c2734;
-        --unsure: #9384de;
-        --unsure-dim: #2a2740;
-
-        --ok: #5fbf77;
-        --bad: #e8593f;
-
-        --mono: 'IBM Plex Mono', monospace;
-        --display: 'Space Grotesk', sans-serif;
-        --body: 'Inter', sans-serif;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: var(--body);
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-      }
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background-image:
-          radial-gradient(
-            circle at 15% 10%,
-            rgba(232, 163, 61, 0.05),
-            transparent 40%
-          ),
-          radial-gradient(
-            circle at 85% 0%,
-            rgba(71, 184, 172, 0.06),
-            transparent 40%
-          ),
-          radial-gradient(
-            circle at 60% 60%,
-            rgba(91, 147, 224, 0.05),
-            transparent 40%
-          ),
-          radial-gradient(
-            circle at 50% 100%,
-            rgba(232, 89, 63, 0.04),
-            transparent 40%
-          );
-        pointer-events: none;
-        z-index: 0;
-      }
-      .wrap {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 28px;
-        position: relative;
-        z-index: 1;
-      }
-      a {
-        color: inherit;
-      }
-
-      .strip {
-        border-bottom: 1px solid var(--border-soft);
-        padding: 16px 0;
-      }
-      .strip .wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-      }
-      .strip-id {
-        font-family: var(--mono);
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        color: var(--muted-2);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--ok);
-        box-shadow: 0 0 8px var(--ok);
-      }
-
-      .hero {
-        padding: 72px 0 48px;
-      }
-      .eyebrow {
-        font-family: var(--mono);
-        font-size: 12px;
-        letter-spacing: 0.14em;
-        color: var(--mcp);
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .eyebrow::before {
-        content: '';
-        width: 22px;
-        height: 1px;
-        background: var(--mcp);
-      }
-      h1 {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: clamp(28px, 4.4vw, 46px);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        max-width: 820px;
-      }
-      h1 span {
-        color: var(--muted-2);
-      }
-      .hero-sub {
-        margin-top: 18px;
-        max-width: 650px;
-        font-size: 16px;
-        color: var(--muted);
-      }
-
-      .caveat-banner {
-        margin-top: 26px;
-        display: flex;
-        gap: 14px;
-        align-items: flex-start;
-        background: var(--unsure-dim);
-        border: 1px solid #3d3868;
-        border-radius: 12px;
-        padding: 16px 18px;
-        max-width: 660px;
-      }
-      .caveat-banner svg {
-        flex: 0 0 auto;
-        margin-top: 2px;
-        width: 18px;
-        height: 18px;
-      }
-      .caveat-banner p {
-        font-size: 13.5px;
-        color: #c4bce8;
-        line-height: 1.6;
-      }
-      .caveat-banner b {
-        color: var(--unsure);
-      }
-
-      section {
-        padding: 52px 0;
-        border-top: 1px solid var(--border-soft);
-      }
-      .sec-head {
-        margin-bottom: 32px;
-        max-width: 660px;
-      }
-      .sec-eyebrow {
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--muted-2);
-        margin-bottom: 12px;
-      }
-      h2 {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: clamp(21px, 2.8vw, 28px);
-        letter-spacing: -0.01em;
-      }
-      .sec-desc {
-        color: var(--muted);
-        margin-top: 12px;
-        font-size: 14.5px;
-      }
-
-      /* ---------- glossary flip cards ---------- */
-      .glossary-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-      }
-      @media (max-width: 900px) {
-        .glossary-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 520px) {
-        .glossary-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      .flip-card {
-        perspective: 1000px;
-        height: 128px;
-        cursor: pointer;
-      }
-      .flip-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.5s;
-        transform-style: preserve-3d;
-      }
-      .flip-card.flipped .flip-inner {
-        transform: rotateY(180deg);
-      }
-      .flip-face {
-        position: absolute;
-        inset: 0;
-        backface-visibility: hidden;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        padding: 14px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .flip-front {
-        background: var(--panel);
-      }
-      .flip-front .fc-term {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: 15px;
-      }
-      .flip-front .fc-hint {
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--muted-2);
-        margin-top: 6px;
-      }
-      .flip-back {
-        background: var(--panel-2);
-        transform: rotateY(180deg);
-      }
-      .flip-back p {
-        font-size: 12px;
-        color: var(--text);
-        line-height: 1.45;
-      }
-      .flip-card[data-c='prompt'] .flip-front {
-        border-top: 3px solid var(--prompt);
-      }
-      .flip-card[data-c='rag'] .flip-front {
-        border-top: 3px solid var(--rag);
-      }
-      .flip-card[data-c='mcp'] .flip-front {
-        border-top: 3px solid var(--mcp);
-      }
-      .flip-card[data-c='tool'] .flip-front {
-        border-top: 3px solid var(--tool);
-      }
-      .flip-card[data-c='regex'] .flip-front {
-        border-top: 3px solid var(--tool);
-      }
-      .flip-card[data-c='dataset'] .flip-front {
-        border-top: 3px solid var(--ok);
-      }
-      .flip-card[data-c='drift'] .flip-front {
-        border-top: 3px solid var(--bad);
-      }
-      .flip-card[data-c='front'] .flip-front {
-        border-top: 3px solid var(--front);
-      }
-
-      /* ---------- layer cards ---------- */
-      .layers {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
-      }
-      @media (max-width: 980px) {
-        .layers {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 640px) {
-        .layers {
-          grid-template-columns: 1fr;
-        }
-      }
-      .layer {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 22px 20px 20px;
-        position: relative;
-        overflow: hidden;
-      }
-      .layer::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-      }
-      .layer.p::after {
-        background: var(--prompt);
-      }
-      .layer.m::after {
-        background: var(--mcp);
-      }
-      .layer.t::after {
-        background: var(--tool);
-      }
-      .layer.r::after {
-        background: var(--rag);
-      }
-      .layer-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 16px;
-      }
-      .layer.p .layer-icon {
-        background: var(--prompt-dim);
-      }
-      .layer.m .layer-icon {
-        background: var(--mcp-dim);
-      }
-      .layer.t .layer-icon {
-        background: var(--tool-dim);
-      }
-      .layer.r .layer-icon {
-        background: var(--rag-dim);
-      }
-      .layer-icon svg {
-        width: 17px;
-        height: 17px;
-      }
-      .layer-tag {
-        font-family: var(--mono);
-        font-size: 10.5px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin-bottom: 6px;
-      }
-      .layer.p .layer-tag {
-        color: var(--prompt);
-      }
-      .layer.m .layer-tag {
-        color: var(--mcp);
-      }
-      .layer.t .layer-tag {
-        color: var(--tool);
-      }
-      .layer.r .layer-tag {
-        color: var(--rag);
-      }
-      .layer h3 {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: 18px;
-        margin-bottom: 10px;
-      }
-      .layer p {
-        color: var(--muted);
-        font-size: 13px;
-        margin-bottom: 12px;
-      }
-      .layer .analogy {
-        font-size: 12.5px;
-        color: var(--text);
-        border-left: 2px solid var(--border);
-        padding-left: 11px;
-        margin-bottom: 14px;
-      }
-      .layer code {
-        display: block;
-        font-family: var(--mono);
-        font-size: 11px;
-        background: var(--panel-2);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 9px 11px;
-        color: var(--muted);
-        line-height: 1.6;
-        white-space: pre-wrap;
-      }
-      .tech-note {
-        margin-top: 14px;
-        background: var(--panel-2);
-        border: 1px dashed var(--border);
-        border-radius: 8px;
-        padding: 10px 12px;
-        font-size: 11.5px;
-        color: var(--muted-2);
-        line-height: 1.6;
-      }
-      .tech-note b {
-        color: var(--muted);
-      }
-
-      /* ---------- pipeline steps (5 layers) ---------- */
-      .pipeline-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 12px;
-      }
-      @media (max-width: 1024px) {
-        .pipeline-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 600px) {
-        .pipeline-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      .pipe-card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 18px;
-        position: relative;
-      }
-      .pipe-num {
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--mcp);
-        margin-bottom: 8px;
-        text-transform: uppercase;
-      }
-      .pipe-card h4 {
-        font-family: var(--display);
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 8px;
-      }
-      .pipe-card p {
-        font-size: 12.5px;
-        color: var(--muted);
-        line-height: 1.45;
-      }
-
-      /* ---------- architecture box (front/back) ---------- */
-      .arch-wrap {
-        display: flex;
-        gap: 18px;
-        align-items: stretch;
-        flex-wrap: wrap;
-      }
-      .arch-front {
-        flex: 0 0 200px;
-        background: var(--front-dim);
-        border: 1px solid #2e4258;
-        border-radius: 14px;
-        padding: 22px 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .arch-front .at {
-        font-family: var(--mono);
-        font-size: 10.5px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--front);
-        margin-bottom: 8px;
-      }
-      .arch-front h4 {
-        font-family: var(--display);
-        font-size: 19px;
-        font-weight: 600;
-        margin-bottom: 10px;
-      }
-      .arch-front p {
-        font-size: 13px;
-        color: var(--text);
-        opacity: 0.85;
-      }
-      .arch-arrow {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 0 0 auto;
-        font-family: var(--mono);
-        font-size: 12px;
-        color: var(--muted-2);
-        text-align: center;
-        min-width: 70px;
-      }
-      .arch-back {
-        flex: 1;
-        min-width: 280px;
-        background: var(--panel);
-        border: 1px dashed var(--border);
-        border-radius: 14px;
-        padding: 22px 22px 18px;
-      }
-      .arch-back .at {
-        font-family: var(--mono);
-        font-size: 10.5px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--unsure);
-        margin-bottom: 6px;
-      }
-      .arch-back h4 {
-        font-family: var(--display);
-        font-size: 19px;
-        font-weight: 600;
-        margin-bottom: 16px;
-      }
-      .arch-pills {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-      .arch-pill {
-        border-radius: 10px;
-        padding: 11px 13px;
-        font-size: 12.5px;
-        border: 1px solid var(--border);
-      }
-      .arch-pill b {
-        display: block;
-        font-family: var(--display);
-        font-size: 13.5px;
-        margin-bottom: 3px;
-      }
-      .arch-pill.p {
-        background: var(--prompt-dim);
-      }
-      .arch-pill.p b {
-        color: var(--prompt);
-      }
-      .arch-pill.r {
-        background: var(--rag-dim);
-      }
-      .arch-pill.r b {
-        color: var(--rag);
-      }
-      .arch-pill.m {
-        background: var(--mcp-dim);
-      }
-      .arch-pill.m b {
-        color: var(--mcp);
-      }
-      .arch-pill.t {
-        background: var(--tool-dim);
-      }
-      .arch-pill.t b {
-        color: var(--tool);
-      }
-      @media (max-width: 760px) {
-        .arch-wrap {
-          flex-direction: column;
-        }
-        .arch-arrow {
-          min-width: 0;
-          padding: 6px 0;
-        }
-      }
-
-      /* ---------- journey ---------- */
-      .journey {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-      }
-      .j-step {
-        display: flex;
-        gap: 16px;
-        align-items: flex-start;
-        padding: 16px 0;
-        position: relative;
-      }
-      .j-num {
-        flex: 0 0 auto;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--mono);
-        font-size: 13px;
-        font-weight: 600;
-        border: 1px solid var(--border);
-        background: var(--panel);
-        position: relative;
-        z-index: 1;
-      }
-      .j-step.f .j-num {
-        border-color: var(--front);
-        color: var(--front);
-      }
-      .j-step.b .j-num {
-        border-color: var(--muted-2);
-        color: var(--text);
-      }
-      .j-step.rp .j-num {
-        border-color: var(--rag);
-        color: var(--rag);
-      }
-      .j-step.tl .j-num {
-        border-color: var(--tool);
-        color: var(--tool);
-      }
-      .j-line {
-        position: absolute;
-        left: 17px;
-        top: 50px;
-        bottom: -16px;
-        width: 1px;
-        background: var(--border);
-      }
-      .j-step:last-child .j-line {
-        display: none;
-      }
-      .j-body h5 {
-        font-family: var(--display);
-        font-size: 15.5px;
-        font-weight: 600;
-        margin-bottom: 4px;
-      }
-      .j-body p {
-        font-size: 13px;
-        color: var(--muted);
-      }
-      .j-loop {
-        margin-top: 14px;
-        margin-left: 50px;
-        font-size: 12.5px;
-        color: var(--unsure);
-        font-family: var(--mono);
-      }
-
-      .principle {
-        display: flex;
-        gap: 18px;
-        align-items: flex-start;
-        background: var(--tool-dim);
-        border: 1px solid #4a2a22;
-        border-radius: 14px;
-        padding: 24px 26px;
-      }
-      .principle .p-icon {
-        flex: 0 0 auto;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        background: rgba(232, 89, 63, 0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .principle h3 {
-        font-family: var(--display);
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--tool);
-        margin-bottom: 10px;
-      }
-      .principle p {
-        font-size: 14px;
-        color: var(--text);
-        opacity: 0.9;
-        max-width: 680px;
-      }
-      .principle p + p {
-        margin-top: 8px;
-      }
-
-      .scene {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 28px;
-      }
-      .scene-line {
-        display: flex;
-        gap: 16px;
-        padding: 13px 0;
-        border-bottom: 1px solid var(--border-soft);
-        align-items: flex-start;
-      }
-      .scene-line:last-child {
-        border-bottom: none;
-      }
-      .scene-tag {
-        flex: 0 0 auto;
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        padding: 4px 10px;
-        border-radius: 20px;
-        white-space: nowrap;
-        margin-top: 2px;
-      }
-      .scene-tag.p {
-        background: var(--prompt-dim);
-        color: var(--prompt);
-      }
-      .scene-tag.m {
-        background: var(--mcp-dim);
-        color: var(--mcp);
-      }
-      .scene-tag.t {
-        background: var(--tool-dim);
-        color: var(--tool);
-      }
-      .scene-txt {
-        font-size: 14.5px;
-        color: var(--text);
-      }
-      .scene-txt b {
-        font-weight: 600;
-      }
-      .scene-txt code {
-        font-family: var(--mono);
-        font-size: 12.5px;
-        color: var(--muted);
-      }
-
-      .triage-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-      }
-      @media (max-width: 820px) {
-        .triage-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      .symptom {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 18px;
-        cursor: pointer;
-        text-align: left;
-        font-family: var(--body);
-        color: var(--text);
-        transition:
-          border-color 0.15s ease,
-          transform 0.15s ease;
-        width: 100%;
-      }
-      .symptom:hover {
-        border-color: var(--muted-2);
-        transform: translateY(-2px);
-      }
-      .symptom.active {
-        border-color: var(--mcp);
-      }
-      .symptom.unsure-btn.active {
-        border-color: var(--unsure);
-      }
-      .symptom .sym-label {
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted-2);
-        margin-bottom: 9px;
-      }
-      .symptom .sym-title {
-        font-size: 13.5px;
-        font-weight: 500;
-        line-height: 1.4;
-      }
-
-      .verdict {
-        margin-top: 18px;
-        background: var(--panel-2);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 22px 24px;
-        display: none;
-      }
-      .verdict.show {
-        display: block;
-      }
-      .verdict-owner {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-family: var(--mono);
-        font-size: 12px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        padding: 5px 12px;
-        border-radius: 20px;
-        margin-bottom: 14px;
-      }
-      .verdict-owner.p {
-        background: var(--prompt-dim);
-        color: var(--prompt);
-      }
-      .verdict-owner.m {
-        background: var(--mcp-dim);
-        color: var(--mcp);
-      }
-      .verdict-owner.t {
-        background: var(--tool-dim);
-        color: var(--tool);
-      }
-      .verdict-owner.r {
-        background: var(--rag-dim);
-        color: var(--rag);
-      }
-      .verdict-owner.u {
-        background: var(--unsure-dim);
-        color: var(--unsure);
-      }
-      .verdict p {
-        color: var(--muted);
-        font-size: 14px;
-      }
-      .verdict p + p {
-        margin-top: 8px;
-      }
-      .verdict .check {
-        margin-top: 14px;
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 12px 14px;
-        font-size: 13px;
-        color: var(--text);
-      }
-      .verdict .check b {
-        color: var(--mcp);
-      }
-
-      /* ---------- practice ---------- */
-      .practice-sub {
-        margin-bottom: 14px;
-      }
-      .practice-sub .st {
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted-2);
-      }
-      .practice-sub h3 {
-        font-family: var(--display);
-        font-size: 17px;
-        font-weight: 600;
-        margin-top: 6px;
-      }
-
-      .tf-card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 18px 20px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-      .tf-statement {
-        font-size: 14px;
-        flex: 1;
-        min-width: 200px;
-      }
-      .tf-btns {
-        display: flex;
-        gap: 8px;
-      }
-      .tf-btn {
-        font-family: var(--mono);
-        font-size: 12px;
-        background: var(--panel-2);
-        border: 1px solid var(--border);
-        color: var(--text);
-        padding: 7px 14px;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-      .tf-btn:hover {
-        border-color: var(--muted-2);
-      }
-      .tf-btn.correct {
-        border-color: var(--ok);
-        background: rgba(95, 191, 119, 0.1);
-        color: var(--ok);
-      }
-      .tf-btn.wrong {
-        border-color: var(--bad);
-        background: rgba(232, 89, 63, 0.1);
-        color: var(--bad);
-      }
-      .tf-btn:disabled {
-        cursor: default;
-      }
-      .tf-feedback {
-        width: 100%;
-        font-size: 12.5px;
-        color: var(--muted);
-        display: none;
-        border-left: 2px solid var(--border);
-        padding-left: 12px;
-        margin-top: 4px;
-      }
-      .tf-feedback.show {
-        display: block;
-      }
-
-      .quiz-card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 22px 22px 18px;
-        margin-bottom: 12px;
-      }
-      .quiz-num {
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--muted-2);
-        letter-spacing: 0.08em;
-        margin-bottom: 9px;
-      }
-      .quiz-scenario {
-        font-size: 14.5px;
-        margin-bottom: 15px;
-        max-width: 640px;
-      }
-      .quiz-flag {
-        display: inline-block;
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--tool);
-        background: var(--tool-dim);
-        padding: 3px 9px;
-        border-radius: 20px;
-        margin-bottom: 12px;
-      }
-      .quiz-opts {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-      .opt-btn {
-        font-family: var(--mono);
-        font-size: 11.5px;
-        letter-spacing: 0.03em;
-        background: var(--panel-2);
-        border: 1px solid var(--border);
-        color: var(--text);
-        padding: 7px 13px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: border-color 0.15s ease;
-      }
-      .opt-btn:hover {
-        border-color: var(--muted-2);
-      }
-      .opt-btn.correct {
-        border-color: var(--ok);
-        background: rgba(95, 191, 119, 0.1);
-        color: var(--ok);
-      }
-      .opt-btn.wrong {
-        border-color: var(--bad);
-        background: rgba(232, 89, 63, 0.1);
-        color: var(--bad);
-      }
-      .opt-btn:disabled {
-        cursor: default;
-      }
-      .quiz-feedback {
-        margin-top: 12px;
-        font-size: 13px;
-        color: var(--muted);
-        display: none;
-        border-left: 2px solid var(--border);
-        padding-left: 12px;
-      }
-      .quiz-feedback.show {
-        display: block;
-      }
-
-      .score-bar {
-        position: sticky;
-        top: 0;
-        z-index: 5;
-        background: rgba(18, 21, 27, 0.92);
-        backdrop-filter: blur(6px);
-        border-bottom: 1px solid var(--border-soft);
-        padding: 10px 0;
-        margin-bottom: 20px;
-        font-family: var(--mono);
-        font-size: 12.5px;
-        color: var(--muted);
-        text-align: center;
-      }
-      .score-bar b {
-        color: var(--text);
-      }
-
-      footer {
-        padding: 48px 0 72px;
-      }
-      .foot-card {
-        border: 1px solid var(--border);
-        background: var(--panel);
-        border-radius: 14px;
-        padding: 26px 28px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-      .foot-card a.cta {
-        font-family: var(--mono);
-        font-size: 13px;
-        color: var(--bg);
-        background: var(--text);
-        padding: 10px 18px;
-        border-radius: 8px;
-        text-decoration: none;
-        white-space: nowrap;
-      }
-      .foot-note {
-        color: var(--muted-2);
-        font-size: 12.5px;
-        margin-top: 20px;
-        max-width: 660px;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <div class="strip">
@@ -1083,20 +17,20 @@
         <div class="strip-id">
           <span class="dot"></span> PAINEL DE QA & TESTES · IA
         </div>
-        <div class="strip-id">v4.1 · guia completo</div>
+        <div class="strip-id">v1.2.0 · guia interativo</div>
       </div>
     </div>
 
-    <div class="score-bar" id="scoreBar">
+    <div class="score-bar" id="scoreBar" role="status" aria-live="polite" aria-atomic="true">
       Acertos: <b id="scoreCount">0</b> / <span id="scoreTotal">0</span>
     </div>
 
     <div class="wrap">
       <section class="hero" style="border-top: none; padding-top: 60px">
-        <div class="eyebrow">Documentação Oficial & Guia de QA</div>
+        <div class="eyebrow">Guia prático & documentação de QA</div>
         <h1>
           Prompt, MCP, Tool, RAG & Regex:
-          <span>explicado do zero ao avançado.</span>
+          <span>explicado do zero à triagem prática.</span>
         </h1>
         <p class="hero-sub">
           Abordagem unificada unindo conceitos práticos de triagem com a
@@ -1133,7 +67,7 @@
           </p>
         </div>
         <div class="glossary-grid" id="glossaryGrid">
-          <div class="flip-card" data-c="prompt">
+          <div class="flip-card" role="button" tabindex="0" data-c="prompt">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">Prompt</div>
@@ -1147,7 +81,7 @@
               </div>
             </div>
           </div>
-          <div class="flip-card" data-c="rag">
+          <div class="flip-card" role="button" tabindex="0" data-c="rag">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">RAG</div>
@@ -1161,7 +95,7 @@
               </div>
             </div>
           </div>
-          <div class="flip-card" data-c="mcp">
+          <div class="flip-card" role="button" tabindex="0" data-c="mcp">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">MCP</div>
@@ -1169,13 +103,14 @@
               </div>
               <div class="flip-face flip-back">
                 <p>
-                  Camada/crachá de acesso e segurança que autoriza a IA a
-                  interagir com sistemas protegidos.
+                  Model Context Protocol: protocolo aberto que conecta aplicações de IA a dados,
+                  ferramentas e fluxos externos; autenticação e autorização continuam sendo responsabilidades
+                  do middleware e dos servidores.
                 </p>
               </div>
             </div>
           </div>
-          <div class="flip-card" data-c="tool">
+          <div class="flip-card" role="button" tabindex="0" data-c="tool">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">Tool</div>
@@ -1183,13 +118,13 @@
               </div>
               <div class="flip-face flip-back">
                 <p>
-                  Função específica acionada pela IA para executar uma ação real
-                  (ex: buscar pedido, cancelar).
+                  Função que, em uma integração real, pode ser acionada pela IA para executar
+                  uma ação (ex.: buscar pedido ou cancelar).
                 </p>
               </div>
             </div>
           </div>
-          <div class="flip-card" data-c="regex">
+          <div class="flip-card" role="button" tabindex="0" data-c="regex">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">Regex</div>
@@ -1203,7 +138,7 @@
               </div>
             </div>
           </div>
-          <div class="flip-card" data-c="dataset">
+          <div class="flip-card" role="button" tabindex="0" data-c="dataset">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">Golden Dataset</div>
@@ -1217,7 +152,7 @@
               </div>
             </div>
           </div>
-          <div class="flip-card" data-c="drift">
+          <div class="flip-card" role="button" tabindex="0" data-c="drift">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">Drift</div>
@@ -1231,7 +166,7 @@
               </div>
             </div>
           </div>
-          <div class="flip-card" data-c="front">
+          <div class="flip-card" role="button" tabindex="0" data-c="front">
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <div class="fc-term">Front-end</div>
@@ -1434,8 +369,8 @@
           <div class="sec-eyebrow">03 — Arquitetura da Solução</div>
           <h2>Front-end vs. Back-end</h2>
           <p class="sec-desc">
-            A interface exibe, mas o processamento analítico e seguro acontece
-            inteiramente no back-end.
+            Exemplo conceitual: em um sistema integrado, o processamento analítico e
+            seguro deve acontecer no back-end.
           </p>
         </div>
         <div class="arch-wrap">
@@ -1443,13 +378,13 @@
             <div class="at">Front-end</div>
             <h4>A Tela</h4>
             <p>
-              Chat, componentes visuais e botões de interação direta com o
-              usuário final.
+              Componentes visuais e botões de interação direta com o usuário final; aqui,
+              a camada é apenas demonstrativa.
             </p>
           </div>
           <div class="arch-arrow">mensagem →<br />← resposta</div>
           <div class="arch-back">
-            <div class="at">Back-end</div>
+            <div class="at">Exemplo de back-end</div>
             <h4>Motor de Inteligência</h4>
             <div class="arch-pills">
               <div class="arch-pill p"><b>Prompt</b>Comportamento</div>
@@ -1472,43 +407,43 @@
           </p>
         </div>
         <div class="triage-grid" id="symptomGrid">
-          <button class="symptom" data-target="v-prompt-a">
+          <button type="button" class="symptom" data-target="v-prompt-a">
             <div class="sym-label">Sintoma A</div>
             <div class="sym-title">
               Comportamento, tom ou diretriz de regra violada
             </div>
           </button>
-          <button class="symptom" data-target="v-tool">
+          <button type="button" class="symptom" data-target="v-tool">
             <div class="sym-label">Sintoma B</div>
             <div class="sym-title">
               Tentativa de execução de ferramenta com erro em log
             </div>
           </button>
-          <button class="symptom" data-target="v-prompt-b">
+          <button type="button" class="symptom" data-target="v-prompt-b">
             <div class="sym-label">Sintoma C</div>
             <div class="sym-title">
               Nunca tentou acionar ferramenta — log limpo
             </div>
           </button>
-          <button class="symptom" data-target="v-front">
+          <button type="button" class="symptom" data-target="v-front">
             <div class="sym-label">Sintoma D</div>
             <div class="sym-title">
               Ação executada sem erro mas omitida na tela
             </div>
           </button>
-          <button class="symptom" data-target="v-rag">
+          <button type="button" class="symptom" data-target="v-rag">
             <div class="sym-label">Sintoma E</div>
             <div class="sym-title">
               Questão factual estável gerando transbordo desnecessário
             </div>
           </button>
-          <button class="symptom" data-target="v-security">
+          <button type="button" class="symptom" data-target="v-security">
             <div class="sym-label">Sintoma F</div>
             <div class="sym-title">
               Exibição de dado sensível sem validação de cliente
             </div>
           </button>
-          <button class="symptom unsure-btn" data-target="v-unsure">
+          <button type="button" class="symptom unsure-btn" data-target="v-unsure">
             <div class="sym-label">Sintoma G</div>
             <div class="sym-title">Incidente inconclusivo / misto</div>
           </button>
@@ -1588,10 +523,10 @@
             execução de tools.
           </div>
           <div class="tf-btns">
-            <button class="tf-btn" data-value="true">Verdadeiro</button
-            ><button class="tf-btn" data-value="false">Falso</button>
+            <button type="button" class="tf-btn" data-value="true">Verdadeiro</button
+            ><button type="button" class="tf-btn" data-value="false">Falso</button>
           </div>
-          <div class="tf-feedback">
+          <div class="tf-feedback" aria-live="polite" aria-hidden="true">
             Exato — o front-end atua apenas como camada de visualização.
           </div>
         </div>
@@ -1601,10 +536,10 @@
             neurais.
           </div>
           <div class="tf-btns">
-            <button class="tf-btn" data-value="true">Verdadeiro</button
-            ><button class="tf-btn" data-value="false">Falso</button>
+            <button type="button" class="tf-btn" data-value="true">Verdadeiro</button
+            ><button type="button" class="tf-btn" data-value="false">Falso</button>
           </div>
-          <div class="tf-feedback">
+          <div class="tf-feedback" aria-live="polite" aria-hidden="true">
             Incorreto. Regex é uma expressão formal estática de comparação
             estrita de padrões de texto.
           </div>
@@ -1615,10 +550,10 @@
             exclusivamente por instruções de prompt.
           </div>
           <div class="tf-btns">
-            <button class="tf-btn" data-value="true">Verdadeiro</button
-            ><button class="tf-btn" data-value="false">Falso</button>
+            <button type="button" class="tf-btn" data-value="true">Verdadeiro</button
+            ><button type="button" class="tf-btn" data-value="false">Falso</button>
           </div>
-          <div class="tf-feedback">
+          <div class="tf-feedback" aria-live="polite" aria-hidden="true">
             Falso. Instruções textuais orientam, mas travas de segurança exigem
             validação em código via MCP.
           </div>
@@ -1629,10 +564,10 @@
             modelo optou por não utilizá-la.
           </div>
           <div class="tf-btns">
-            <button class="tf-btn" data-value="true">Verdadeiro</button
-            ><button class="tf-btn" data-value="false">Falso</button>
+            <button type="button" class="tf-btn" data-value="true">Verdadeiro</button
+            ><button type="button" class="tf-btn" data-value="false">Falso</button>
           </div>
-          <div class="tf-feedback">
+          <div class="tf-feedback" aria-live="polite" aria-hidden="true">
             Verdadeiro. Log limpo não indica erro de sistema, mas sim decisão
             comportamental de prompt.
           </div>
@@ -1650,14 +585,14 @@
             do canal corporativo.
           </div>
           <div class="quiz-opts" data-answer="prompt">
-            <button class="opt-btn" data-value="prompt">Prompt</button
-            ><button class="opt-btn" data-value="rag">RAG</button
-            ><button class="opt-btn" data-value="mcp">MCP</button
-            ><button class="opt-btn" data-value="tool">Tool</button
-            ><button class="opt-btn" data-value="front">Front-end</button
-            ><button class="opt-btn" data-value="unsure">Não sei</button>
+            <button type="button" class="opt-btn" data-value="prompt">Prompt</button
+            ><button type="button" class="opt-btn" data-value="rag">RAG</button
+            ><button type="button" class="opt-btn" data-value="mcp">MCP</button
+            ><button type="button" class="opt-btn" data-value="tool">Tool</button
+            ><button type="button" class="opt-btn" data-value="front">Front-end</button
+            ><button type="button" class="opt-btn" data-value="unsure">Não sei</button>
           </div>
-          <div class="quiz-feedback">
+          <div class="quiz-feedback" aria-live="polite" aria-hidden="true">
             Ajuste de comportamento e tom textual pertencem à camada de Prompt.
           </div>
         </div>
@@ -1669,14 +604,14 @@
             confirmação de CPF do cliente.
           </div>
           <div class="quiz-opts" data-answer="mcp">
-            <button class="opt-btn" data-value="prompt">Prompt</button
-            ><button class="opt-btn" data-value="rag">RAG</button
-            ><button class="opt-btn" data-value="mcp">MCP</button
-            ><button class="opt-btn" data-value="tool">Tool</button
-            ><button class="opt-btn" data-value="front">Front-end</button
-            ><button class="opt-btn" data-value="unsure">Não sei</button>
+            <button type="button" class="opt-btn" data-value="prompt">Prompt</button
+            ><button type="button" class="opt-btn" data-value="rag">RAG</button
+            ><button type="button" class="opt-btn" data-value="mcp">MCP</button
+            ><button type="button" class="opt-btn" data-value="tool">Tool</button
+            ><button type="button" class="opt-btn" data-value="front">Front-end</button
+            ><button type="button" class="opt-btn" data-value="unsure">Não sei</button>
           </div>
-          <div class="quiz-feedback">
+          <div class="quiz-feedback" aria-live="polite" aria-hidden="true">
             Falha crítica de segurança e controle de acesso, responsabilidade da
             camada MCP/Middleware.
           </div>
@@ -1689,14 +624,14 @@
             constante para operadores humanos.
           </div>
           <div class="quiz-opts" data-answer="rag">
-            <button class="opt-btn" data-value="prompt">Prompt</button
-            ><button class="opt-btn" data-value="rag">RAG</button
-            ><button class="opt-btn" data-value="mcp">MCP</button
-            ><button class="opt-btn" data-value="tool">Tool</button
-            ><button class="opt-btn" data-value="front">Front-end</button
-            ><button class="opt-btn" data-value="unsure">Não sei</button>
+            <button type="button" class="opt-btn" data-value="prompt">Prompt</button
+            ><button type="button" class="opt-btn" data-value="rag">RAG</button
+            ><button type="button" class="opt-btn" data-value="mcp">MCP</button
+            ><button type="button" class="opt-btn" data-value="tool">Tool</button
+            ><button type="button" class="opt-btn" data-value="front">Front-end</button
+            ><button type="button" class="opt-btn" data-value="unsure">Não sei</button>
           </div>
-          <div class="quiz-feedback">
+          <div class="quiz-feedback" aria-live="polite" aria-hidden="true">
             Falta de dados factuais e estruturados na base de conhecimento
             (RAG).
           </div>
@@ -1709,14 +644,14 @@
             formatação estrita de traços e parênteses.
           </div>
           <div class="quiz-opts" data-answer="tool">
-            <button class="opt-btn" data-value="prompt">Prompt</button
-            ><button class="opt-btn" data-value="rag">RAG</button
-            ><button class="opt-btn" data-value="mcp">MCP</button
-            ><button class="opt-btn" data-value="tool">Tool</button
-            ><button class="opt-btn" data-value="front">Front-end</button
-            ><button class="opt-btn" data-value="unsure">Não sei</button>
+            <button type="button" class="opt-btn" data-value="prompt">Prompt</button
+            ><button type="button" class="opt-btn" data-value="rag">RAG</button
+            ><button type="button" class="opt-btn" data-value="mcp">MCP</button
+            ><button type="button" class="opt-btn" data-value="tool">Tool</button
+            ><button type="button" class="opt-btn" data-value="front">Front-end</button
+            ><button type="button" class="opt-btn" data-value="unsure">Não sei</button>
           </div>
-          <div class="quiz-feedback">
+          <div class="quiz-feedback" aria-live="polite" aria-hidden="true">
             Ajuste técnico de Regex e validação de parâmetros na camada de Tool.
           </div>
         </div>
@@ -1736,7 +671,7 @@
               Documentação Técnica
             </div>
             <div style="color: var(--muted); font-size: 14px">
-              Repositório oficial para validação e garantia de qualidade em IA.
+              Guia interativo para validação e garantia de qualidade em IA.
             </div>
           </div>
           <a
@@ -1753,83 +688,6 @@
         </div>
       </footer>
     </div>
-
-    <script>
-      document.querySelectorAll('.flip-card').forEach((card) => {
-        card.addEventListener('click', () => card.classList.toggle('flipped'));
-      });
-
-      document.querySelectorAll('.symptom').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const targetId = btn.getAttribute('data-target');
-          const isActive = btn.classList.contains('active');
-          document
-            .querySelectorAll('.symptom')
-            .forEach((b) => b.classList.remove('active'));
-          document
-            .querySelectorAll('.verdict')
-            .forEach((v) => v.classList.remove('show'));
-          if (!isActive) {
-            btn.classList.add('active');
-            document.getElementById(targetId).classList.add('show');
-          }
-        });
-      });
-
-      let score = 0,
-        total = 0;
-      function bumpScore(correct) {
-        total++;
-        if (correct) score++;
-        document.getElementById('scoreCount').textContent = score;
-        document.getElementById('scoreTotal').textContent = total;
-      }
-
-      document.querySelectorAll('.tf-card').forEach((card) => {
-        const answer = card.getAttribute('data-answer');
-        const feedback = card.querySelector('.tf-feedback');
-        const buttons = card.querySelectorAll('.tf-btn');
-        buttons.forEach((btn) => {
-          btn.addEventListener('click', () => {
-            const value = btn.getAttribute('data-value');
-            buttons.forEach((b) => (b.disabled = true));
-            const isCorrect = value === answer;
-            if (isCorrect) {
-              btn.classList.add('correct');
-            } else {
-              btn.classList.add('wrong');
-              card
-                .querySelector(`[data-value="${answer}"]`)
-                .classList.add('correct');
-            }
-            feedback.classList.add('show');
-            bumpScore(isCorrect);
-          });
-        });
-      });
-
-      document.querySelectorAll('.quiz-opts').forEach((group) => {
-        const answer = group.getAttribute('data-answer');
-        const feedback = group.parentElement.querySelector('.quiz-feedback');
-        const buttons = group.querySelectorAll('.opt-btn');
-        buttons.forEach((btn) => {
-          btn.addEventListener('click', () => {
-            const value = btn.getAttribute('data-value');
-            buttons.forEach((b) => (b.disabled = true));
-            const isCorrect = value === answer;
-            if (isCorrect) {
-              btn.classList.add('correct');
-            } else {
-              btn.classList.add('wrong');
-              group
-                .querySelector(`[data-value="${answer}"]`)
-                .classList.add('correct');
-            }
-            feedback.classList.add('show');
-            bumpScore(isCorrect);
-          });
-        });
-      });
-    </script>
+      <script src="assets/js/app.js" defer></script>
   </body>
 </html>

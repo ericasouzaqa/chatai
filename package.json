@@ -1,0 +1,14 @@
+{
+  "name": "chatai-qa-guide",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Guia educativo estático de QA para chatbots de IA",
+  "scripts": {
+    "test": "node --test tests/app.test.js",
+    "build": "node -e \"const fs=require('node:fs'); for (const file of ['index.html','assets/css/style.css','assets/js/app.js']) fs.accessSync(file, fs.constants.R_OK); console.log('Static build OK');\"",
+    "serve": "python3 -m http.server 4173"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

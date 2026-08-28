@@ -1,39 +1,59 @@
-# Guia de QA · Chatbot de IA (chatai)
+# Guia de QA para Chatbots de IA
 
-Repositório oficial contendo documentação técnica, diretrizes metodológicas e cenários de teste aplicados à garantia de qualidade (*Quality Assurance*) de sistemas conversacionais baseados em Inteligência Artificial Generativa[cite: 3].
+Guia educativo e interativo sobre garantia de qualidade em sistemas conversacionais baseados em inteligência artificial generativa.
 
-## 1. Visão Geral
-Testar inteligência artificial generativa difere fundamentalmente de testar um formulário tradicional de software. Uma mesma pergunta pode gerar duas respostas corretas com construções textuais diferentes, o que exige uma mudança direta nos critérios de validação de qualidade[cite: 3].
+> **Escopo real:** este repositório entrega uma página estática de documentação. Ele não é um chatbot, não chama modelos de IA e não implementa backend, RAG, MCP, tools ou automação de testes.
 
----
+## Objetivo
 
-## 2. Glossário de Teste
-* **Golden Dataset:** Conjunto de perguntas com resposta certa, verificada por quem entende do negócio, servindo de régua para medir se o sistema piorou[cite: 3].
-* **Regressão:** Processo de testar novamente tudo o que já funcionava após qualquer alteração, garantindo que nada quebrou sem consentimento[cite: 3].
-* **Drift:** Fenômeno em que o comportamento do bot vai mudando aos poucos ao longo do tempo, sem alterações visíveis no código[cite: 3].
-* **Red-Team:** Tentativa ativa de quebrar o comportamento do bot antes que usuários externos o façam (teste de invasão comportamental)[cite: 3].
-* **Fidelidade:** Métrica que avalia o quanto a resposta gerada é fiel ao conteúdo da base de dados, sem inventar detalhes[cite: 3].
+A página explica como diagnosticar falhas em sistemas conversacionais e como organizar uma estratégia de QA em cinco camadas: testes unitários, testes funcionais, regressão, segurança/adversarial e monitoramento.
 
----
+O material é voltado a pessoas desenvolvedoras, profissionais de QA e equipes que precisam separar problemas de comportamento, conteúdo, integração, execução e interface.
 
-## 3. Pipeline de Testes (As 5 Camadas)
-O processo de validação é estruturado em cinco camadas sucessivas de proteção:
-1. **Teste Unitário:** Pares de pergunta-resposta isolados a cada ajuste de prompt para validar tom e recusas[cite: 3].
-2. **Teste Funcional:** Conversas completas e sequenciais para assegurar a retenção de contexto pelo sistema[cite: 3].
-3. **Teste de Regressão:** Execução do *golden dataset* para comparar o comportamento atual com a última versão estável[cite: 3].
-4. **Teste Adversarial e de Segurança:** Tentativas ativas de burlar instruções, extrair dados ou sair do escopo[cite: 3].
-5. **Monitoramento:** Acompanhamento contínuo em produção com emissão de alertas em caso de desvios operacionais[cite: 3].
+## O que está disponível
 
----
+A aplicação contém um glossário interativo com oito termos, uma visão conceitual das camadas Prompt, RAG, MCP, middleware e Tool, um pipeline de QA em cinco etapas, uma triagem com sete sintomas e oito exercícios com feedback imediato.
 
-## 4. Checklist por Peça
-* **Prompt (Comportamento):** Validação de tom sob pressão, recusas educadas e consistência em frases variadas[cite: 3].
-* **RAG (Conteúdo):** Verificação de fidelidade à base de dados, precisão de trechos e admissão de lacunas de conhecimento[cite: 3].
-* **MCP (Acesso e Segurança):** Restrição de dados sensíveis e bloqueio de solicitações direcionadas a contas de terceiros[cite: 3].
-* **Tool (Execução):** Homologação de parâmetros enviados às ferramentas, suporte a formatos variados e clareza em erros[cite: 3].
-* **Front / Back (Entrega):** Verificação de renderização visual de respostas, funcionamento de botões e tempo de resposta[cite: 3].
+A pontuação é calculada somente em memória durante a sessão. Recarregar a página reinicia o placar.
 
----
+## Conceitos e limites
 
-## 5. Licença
-Este repositório é distribuído sob os termos da licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
+**MCP** significa **Model Context Protocol**. É um protocolo aberto para conectar aplicações de IA a dados, ferramentas e fluxos externos. MCP não substitui autenticação, autorização ou políticas de segurança, que devem ser aplicadas pelo middleware e pelos servidores envolvidos.
+
+As seções sobre backend, RAG, MCP e tools são exemplos conceituais para fins de aprendizagem. Nenhuma integração real é executada por esta aplicação.
+
+## Fora do escopo atual
+
+O projeto não fornece scripts executáveis de teste, dataset dourado, comparação de regressão, monitoramento, analytics, autenticação, persistência, exportação, chamadas a APIs ou armazenamento de dados do usuário. Esses itens não devem ser anunciados como funcionalidades disponíveis sem uma implementação verificável.
+
+## Execução local
+
+Como não há dependências nem etapa de build, basta servir o diretório como conteúdo estático:
+
+```bash
+python3 -m http.server 4173
+```
+
+Em seguida, acesse `http://localhost:4173/` no navegador.
+
+## Estrutura
+
+| Caminho | Responsabilidade |
+| --- | --- |
+| `index.html` | Estrutura semântica e conteúdo da página |
+| `assets/css/style.css` | Estilos e responsividade |
+| `assets/js/app.js` | Interações locais do glossário, triagem e exercícios |
+| `tests/app.test.js` | Verificações estáticas de integridade do conteúdo |
+| `.github/workflows/ci.yml` | Validação automatizada em cada alteração |
+| `.github/workflows/deploy-pages.yml` | Publicação explícita no GitHub Pages |
+| `license.txt` | Licença MIT |
+
+## Publicação
+
+A publicação é feita pelo workflow `deploy-pages.yml` após a validação do CI. A URL canônica é <https://ericasouzaqa.github.io/chatai/>.
+
+A URL só deve ser considerada publicada quando responder com HTTP 200 e entregar o `index.html` desta branch. O status do workflow, isoladamente, não substitui essa verificação.
+
+## Licença
+
+Este projeto é distribuído sob a [Licença MIT](license.txt).
