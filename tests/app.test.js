@@ -18,7 +18,9 @@ const matches = (pattern, content = html) => [...content.matchAll(pattern)].map(
   assert.equal((html.match(/<script\b/gi) || []).length, 1);
   assert.match(html, /<script src="assets\/js\/app\.js" defer><\/script>/);
   assert.equal((html.match(/<style\b/gi) || []).length, 0);
+  assert.doesNotMatch(html, /\sstyle=/i);
   assert.match(html, /<link rel="stylesheet" href="assets\/css\/style\.css" \/>/);
+  assert.match(html, /Content-Security-Policy/);
 });
 
 test('assets referenciados existem e o JavaScript passa por sintaxe externa', () => {

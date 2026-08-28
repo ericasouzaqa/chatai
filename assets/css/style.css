@@ -1072,3 +1072,28 @@
   outline: 2px solid var(--mcp);
   outline-offset: 3px;
 }
+
+.hero-first {
+  border-top: none;
+  padding-top: 60px;
+}
+
+.practice-sub-spaced {
+  margin-top: 36px;
+}
+
+.foot-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.foot-desc {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.section-no-border {
+  border-top: none;
+}

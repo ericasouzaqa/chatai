@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self';" />
     <title>Guia Definitivo de QA & Testes — Chatbots de IA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -26,7 +27,7 @@
     </div>
 
     <div class="wrap">
-      <section class="hero" style="border-top: none; padding-top: 60px">
+      <section class="hero hero-first">
         <div class="eyebrow">Guia prático & documentação de QA</div>
         <h1>
           Prompt, MCP, Tool, RAG & Regex:
@@ -57,7 +58,7 @@
       </section>
 
       <!-- GLOSSÁRIO INTERATIVO -->
-      <section id="glossary" style="border-top: none">
+      <section id="glossary" class="section-no-border">
         <div class="sec-head">
           <div class="sec-eyebrow">00 — Glossário Técnico & Conceitual</div>
           <h2>Clique em cada termo pra ver a definição</h2>
@@ -573,7 +574,7 @@
           </div>
         </div>
 
-        <div class="practice-sub" style="margin-top: 36px">
+        <div class="practice-sub practice-sub-spaced">
           <div class="st">Parte 2</div>
           <h3>Cenários Práticos (Quem resolve?)</h3>
         </div>
@@ -660,17 +661,10 @@
       <footer>
         <div class="foot-card">
           <div>
-            <div
-              style="
-                font-family: var(--display);
-                font-weight: 600;
-                font-size: 16px;
-                margin-bottom: 6px;
-              "
-            >
+<div class="foot-title">
               Documentação Técnica
             </div>
-            <div style="color: var(--muted); font-size: 14px">
+            <div class="foot-desc">
               Guia interativo para validação e garantia de qualidade em IA.
             </div>
           </div>
