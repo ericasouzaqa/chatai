@@ -20,7 +20,7 @@ A aplicação é um guia educativo interativo sobre Prompt, RAG, MCP, Tool, Rege
 - O material inicial usava MCP apenas como rótulo de camada de acesso, sem informar sua expansão. A versão refatorada passou a declarar **Model Context Protocol**, em linha com a documentação oficial.
 - Há promessas de arquitetura “inteiramente no back-end”, embora o projeto não contenha back-end; no contexto da página, isso funciona como conteúdo didático, mas deve ser explicitamente apresentado como exemplo conceitual.
 - As respostas e a pontuação não são persistidas; ao recarregar a página o placar volta a zero. Não há exportação.
-- Não foram encontrados tokens, chaves, chamadas de rede em runtime, armazenamento local, `innerHTML`, `eval` ou outros sinks perigosos. O único tráfego externo previsto é o carregamento de fontes do Google Fonts.
+- Não foram encontrados tokens, chaves, chamadas de rede em runtime, armazenamento local, `innerHTML`, `eval` ou outros sinks perigosos. A V1 não carrega fontes externas; o único link externo é o link de navegação para o repositório no GitHub.
 
 ## Publicação
 
@@ -60,7 +60,7 @@ A URL que estava em 404 antes da correção agora está comprovadamente publicad
 
 ## Endurecimento final
 
-A versão final removeu todos os estilos inline e adicionou CSP via meta tag, permitindo somente scripts locais, estilos locais/Google Fonts, fontes do Google e conexões próprias. O JavaScript não usa sinks perigosos nem integrações simuladas.
+A versão final removeu todos os estilos inline, eliminou Google Fonts e adicionou CSP via meta tag, permitindo somente scripts, estilos, fontes e conexões locais. O JavaScript não usa sinks perigosos nem integrações simuladas.
 
 A release pública `1.1.0` foi corrigida para declarar o escopo estático real e os limites da entrega, removendo a promessa de scripts, dataset dourado e monitoramento inexistentes.
 

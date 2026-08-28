@@ -21,6 +21,7 @@ const matches = (pattern, content = html) => [...content.matchAll(pattern)].map(
   assert.doesNotMatch(html, /\sstyle=/i);
   assert.match(html, /<link rel="stylesheet" href="assets\/css\/style\.css" \/>/);
   assert.match(html, /Content-Security-Policy/);
+  assert.doesNotMatch(html, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
 });
 
 test('assets referenciados existem e o JavaScript passa por sintaxe externa', () => {
