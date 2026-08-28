@@ -52,10 +52,199 @@
         </div>
       </section>
 
+      <section id="learning-path" class="learning-path section-no-border">
+        <div class="sec-head">
+          <div class="sec-eyebrow">00 — Trilha de Aprendizado</div>
+          <h2>Aprenda em uma sequência simples</h2>
+          <p class="sec-desc">
+            Siga do conceito mais básico até a estratégia de QA. Esta página ensina
+            ideias usadas em sistemas reais, mas não executa nenhum desses sistemas.
+          </p>
+        </div>
+        <div class="path-grid">
+          <a href="#fundamentals">01 · Fundamentos</a>
+          <a href="#chatbot-flow">02 · Chatbot</a>
+          <a href="#prompt-testing">03 · Testes de prompt</a>
+          <a href="#rag-lesson">04 · RAG</a>
+          <a href="#mcp-tools">05 · MCP e Tools</a>
+          <a href="#middleware-gateway">06 · Middleware e Gateway</a>
+          <a href="#bedrock-lesson">07 · Amazon Bedrock</a>
+          <a href="#observability-lesson">08 · Evidência e observabilidade</a>
+          <a href="#playwright-lesson">09 · Playwright</a>
+          <a href="#pipeline">10 · Estratégia de QA</a>
+        </div>
+      </section>
+
+      <section id="fundamentals">
+        <div class="sec-head">
+          <div class="sec-eyebrow">01 — Fundamentos</div>
+          <h2>Antes de testar, entenda o que está sendo testado</h2>
+          <p class="sec-desc">
+            IA generativa produz uma saída a partir de uma entrada e de um contexto.
+            Uma resposta pode soar convincente e ainda estar errada.
+          </p>
+        </div>
+        <div class="concept-grid concept-grid-3">
+          <article class="concept-card">
+            <div class="lesson-label">Conceito</div>
+            <h3>IA generativa</h3>
+            <div class="qa-row"><b>O que é?</b><span>É uma tecnologia que gera texto, imagem ou outro conteúdo a partir de padrões aprendidos em dados.</span></div>
+            <div class="qa-row"><b>Para que serve?</b><span>Para apoiar tarefas como responder perguntas, resumir, classificar ou criar rascunhos.</span></div>
+            <div class="qa-row"><b>Exemplo simples</b><span>Receber “resuma este parágrafo” e produzir uma versão menor.</span></div>
+            <div class="qa-row"><b>Onde pode falhar?</b><span>Pode inventar fatos, ignorar instruções ou responder com excesso de confiança.</span></div>
+            <div class="qa-row"><b>Como um QA pensa?</b><span>Separo “parece bem escrito” de “está correto, seguro e adequado ao objetivo”.</span></div>
+            <div class="qa-row"><b>O que testar?</b><span>Correção, consistência, limites, entradas ambíguas, dados sensíveis e comportamento inesperado.</span></div>
+          </article>
+          <article class="concept-card">
+            <div class="lesson-label">Conceito</div>
+            <h3>Resposta plausível x correta</h3>
+            <div class="qa-row"><b>O que é?</b><span>Plausível é a resposta que parece razoável; correta é a que pode ser verificada na fonte ou regra esperada.</span></div>
+            <div class="qa-row"><b>Para que serve?</b><span>Essa diferença ajuda a evitar que fluência seja confundida com qualidade.</span></div>
+            <div class="qa-row"><b>Exemplo simples</b><span>“O prazo é amanhã” pode soar natural, mas só é correto se a política confirmar a data.</span></div>
+            <div class="qa-row"><b>Onde pode falhar?</b><span>Quando não existe fonte confiável, o contexto é insuficiente ou o modelo preenche lacunas.</span></div>
+            <div class="qa-row"><b>Como um QA pensa?</b><span>Procuro evidência observável e defino o que deve acontecer quando a informação não existe.</span></div>
+            <div class="qa-row"><b>O que testar?</b><span>Casos com resposta conhecida, ausência de informação, conflito entre fontes e pedido de esclarecimento.</span></div>
+          </article>
+          <article class="concept-card">
+            <div class="lesson-label">Regra de QA</div>
+            <h3>Evidência antes de conclusão</h3>
+            <div class="qa-row"><b>O que é?</b><span>É a prática de basear o diagnóstico em entradas, saídas, logs, fontes e critérios definidos.</span></div>
+            <div class="qa-row"><b>Para que serve?</b><span>Evita atribuir toda falha à IA quando o problema está na interface, nos dados ou no acesso.</span></div>
+            <div class="qa-row"><b>Exemplo simples</b><span>Se a tela não mostra a resposta, primeiro compare a saída recebida com a saída renderizada.</span></div>
+            <div class="qa-row"><b>Onde pode falhar?</b><span>Quando há logs incompletos, critérios vagos ou pressão para escolher uma causa sem prova.</span></div>
+            <div class="qa-row"><b>Como um QA pensa?</b><span>Registro o que sei, o que não sei e o que precisa ser investigado.</span></div>
+            <div class="qa-row"><b>O que testar?</b><span>Reprodutibilidade, rastreabilidade, mensagens de erro e cenários em que não há evidência suficiente.</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="chatbot-flow">
+        <div class="sec-head">
+          <div class="sec-eyebrow">02 — Como funciona um chatbot</div>
+          <h2>Um fluxo conceitual, não uma implementação desta página</h2>
+          <p class="sec-desc">
+            Sistemas reais podem ter arquiteturas diferentes. O desenho abaixo serve
+            para localizar responsabilidades e perguntas de teste.
+          </p>
+        </div>
+        <div class="flow-strip" aria-label="Fluxo conceitual de uma mensagem">
+          <span>Usuário</span><i>→</i><span>Interface</span><i>→</i><span>Prompt</span><i>→</i><span>Modelo</span><i>→</i><span>RAG</span><i>→</i><span>Tool</span><i>→</i><span>Middleware</span><i>→</i><span>Gateway</span><i>→</i><span>Sistemas externos</span>
+        </div>
+        <div class="concept-grid concept-grid-3">
+          <article class="lesson-card"><div class="lesson-label">Entrada</div><h3>Usuário e interface</h3><p><b>O que é?</b> A pessoa envia uma intenção por uma tela.</p><p><b>O que testar?</b> Campos vazios, caracteres especiais, acessibilidade, mensagens de erro e o que a tela realmente exibe.</p></article>
+          <article class="lesson-card"><div class="lesson-label">Processamento</div><h3>Prompt, modelo e contexto</h3><p><b>O que é?</b> Instruções e contexto orientam o modelo a produzir uma saída.</p><p><b>O que testar?</b> Regras, contexto perdido, resposta fora do escopo e diferença entre saída esperada e plausível.</p></article>
+          <article class="lesson-card"><div class="lesson-label">Controle</div><h3>Tool, middleware e gateway</h3><p><b>O que é?</b> Camadas que, em sistemas reais, controlam ações, permissões, roteamento e limites.</p><p><b>O que testar?</b> Parâmetros inválidos, autorização, timeouts, falhas de integração, limites e rastreabilidade.</p></article>
+        </div>
+        <div class="callout conceptual-note"><b>Importante:</b> esta página apenas explica o fluxo. Ela não recebe mensagens de chatbot, não chama modelo, não consulta RAG e não acessa sistemas externos.</div>
+      </section>
+
+      <section id="prompt-testing">
+        <div class="sec-head">
+          <div class="sec-eyebrow">03 — Testes de prompt</div>
+          <h2>Transforme uma instrução em perguntas verificáveis</h2>
+          <p class="sec-desc">Prompt não é um caso de teste. É uma entrada que precisa ser avaliada contra um comportamento esperado.</p>
+        </div>
+        <div class="concept-grid concept-grid-2">
+          <article class="concept-card">
+            <div class="lesson-label">Conceito</div><h3>Teste de comportamento</h3>
+            <div class="qa-row"><b>O que é?</b><span>Comparar a instrução, a entrada e a resposta com critérios de comportamento.</span></div>
+            <div class="qa-row"><b>Para que serve?</b><span>Encontrar desvios de tom, escopo, formato, segurança e regras de negócio.</span></div>
+            <div class="qa-row"><b>Exemplo simples</b><span>Regra: “responda em até três frases”. Caso: pergunta longa. Esperado: resposta curta e útil.</span></div>
+            <div class="qa-row"><b>Onde pode falhar?</b><span>Com instruções conflitantes, contexto grande, pedidos ambíguos ou tentativas de ignorar regras.</span></div>
+            <div class="qa-row"><b>Como um QA pensa?</b><span>Crio entradas normais, limites, negativas, adversariais e variações de linguagem.</span></div>
+            <div class="qa-row"><b>O que testar?</b><span>Tom, formato, recusa segura, consistência entre turnos, idioma, instruções conflitantes e dados sensíveis.</span></div>
+          </article>
+          <article class="lesson-card">
+            <div class="lesson-label">Método para iniciantes</div><h3>Do requisito ao caso de teste</h3>
+            <ol class="step-list"><li><b>Escreva o comportamento esperado:</b> o que a pessoa deve receber?</li><li><b>Escolha uma entrada normal:</b> o caminho que deve funcionar.</li><li><b>Adicione uma variação:</b> erro de digitação, limite ou ambiguidade.</li><li><b>Defina a evidência:</b> texto, formato, log, fonte ou mensagem.</li><li><b>Registre o GAP:</b> se não houver evidência suficiente, não invente o resultado.</li></ol>
+          </article>
+        </div>
+      </section>
+
+      <section id="rag-lesson">
+        <div class="sec-head"><div class="sec-eyebrow">04 — RAG</div><h2>Quando a resposta precisa de uma fonte</h2><p class="sec-desc">RAG é um padrão conceitual de recuperação de informação para dar contexto adicional ao modelo.</p></div>
+        <article class="concept-card concept-card-wide">
+          <div class="lesson-label">Retrieval-Augmented Generation</div><h3>RAG</h3>
+          <div class="qa-row"><b>O que é?</b><span>Um fluxo que recupera trechos relevantes de uma fonte, adiciona esse contexto ao pedido e então gera uma resposta.</span></div>
+          <div class="qa-row"><b>Para que serve?</b><span>Para orientar respostas com documentos, políticas ou dados que precisam ser consultados.</span></div>
+          <div class="qa-row"><b>Exemplo simples</b><span>Buscar na política de trocas o prazo aplicável antes de responder ao cliente.</span></div>
+          <div class="qa-row"><b>Onde pode falhar?</b><span>Fonte desatualizada, trecho irrelevante, recuperação incompleta, conflito entre documentos ou resposta sem evidência.</span></div>
+          <div class="qa-row"><b>Como um QA pensa?</b><span>Preservo a fonte original, verifico a relevância do trecho e separo fato encontrado de inferência.</span></div>
+          <div class="qa-row"><b>O que testar?</b><span>Documento correto, ausência de fonte, versões conflitantes, perguntas fora do acervo, citações e resposta de “não sei”.</span></div>
+        </article>
+        <div class="callout"><b>Regra de evidência:</b> se a fonte não sustenta a resposta, o resultado deve ser tratado como insuficiente ou <b>GAP</b>, e não completado por suposição.</div>
+      </section>
+
+      <section id="mcp-tools">
+        <div class="sec-head"><div class="sec-eyebrow">05 — MCP e Tools</div><h2>Contexto e ação não são a mesma coisa</h2><p class="sec-desc">Os dois conceitos aparecem juntos em arquiteturas de IA, mas respondem a perguntas diferentes.</p></div>
+        <div class="concept-grid concept-grid-2">
+          <article class="concept-card">
+            <div class="lesson-label">Model Context Protocol</div><h3>MCP</h3>
+            <div class="qa-row"><b>O que é?</b><span>Um protocolo aberto para padronizar a conexão entre aplicações de IA e recursos, prompts ou ferramentas.</span></div>
+            <div class="qa-row"><b>Para que serve?</b><span>Para organizar como capacidades podem ser descobertas e usadas em uma arquitetura integrada.</span></div>
+            <div class="qa-row"><b>Exemplo simples</b><span>Um cliente conceitual descobre uma ferramenta de consulta oferecida por um servidor.</span></div>
+            <div class="qa-row"><b>Onde pode falhar?</b><span>Descoberta incompleta, contrato incompatível, parâmetros inválidos, autorização ausente ou resposta malformada.</span></div>
+            <div class="qa-row"><b>Como um QA pensa?</b><span>Separo protocolo, cliente, servidor, permissão e ferramenta; não trato o nome MCP como prova de segurança.</span></div>
+            <div class="qa-row"><b>O que testar?</b><span>Capacidades anunciadas, contratos, erros, limites, autorização, dados retornados e rastreabilidade.</span></div>
+          </article>
+          <article class="concept-card">
+            <div class="lesson-label">Ação</div><h3>Tool</h3>
+            <div class="qa-row"><b>O que é?</b><span>Uma capacidade que um sistema integrado pode chamar para executar uma operação definida.</span></div>
+            <div class="qa-row"><b>Para que serve?</b><span>Para buscar dados, calcular, criar ou alterar algo fora do texto gerado pelo modelo.</span></div>
+            <div class="qa-row"><b>Exemplo simples</b><span>Uma função conceitual `buscar_pedido(id)` que consulta um pedido.</span></div>
+            <div class="qa-row"><b>Onde pode falhar?</b><span>Entrada inválida, permissão insuficiente, timeout, efeito duplicado ou retorno interpretado incorretamente.</span></div>
+            <div class="qa-row"><b>Como um QA pensa?</b><span>Trato cada chamada como uma integração com contrato, risco e efeito observável.</span></div>
+            <div class="qa-row"><b>O que testar?</b><span>Schema, campos obrigatórios, valores-limite, idempotência, erro, autorização e confirmação antes de efeito crítico.</span></div>
+          </article>
+        </div>
+        <div class="callout conceptual-note"><b>Escopo desta página:</b> MCP e Tools são explicados somente como conceitos. Nenhuma ferramenta real é descoberta, chamada ou executada aqui.</div>
+      </section>
+
+      <section id="middleware-gateway">
+        <div class="sec-head"><div class="sec-eyebrow">06 — Middleware e Gateway</div><h2>As camadas que controlam o caminho</h2><p class="sec-desc">Em uma aplicação real, segurança e governança não devem depender apenas de texto no prompt.</p></div>
+        <div class="concept-grid concept-grid-2">
+          <article class="concept-card"><div class="lesson-label">Controle</div><h3>Middleware</h3><div class="qa-row"><b>O que é?</b><span>Uma camada intermediária que aplica regras antes ou depois de uma operação.</span></div><div class="qa-row"><b>Para que serve?</b><span>Para validar identidade, autorização, formato, política, logs e tratamento de erros.</span></div><div class="qa-row"><b>Exemplo simples</b><span>Verificar se a pessoa pode consultar um pedido antes de entregar seus dados.</span></div><div class="qa-row"><b>Onde pode falhar?</b><span>Regra aplicada só em um caminho, autorização incompleta, log sem contexto ou erro transformado em sucesso.</span></div><div class="qa-row"><b>Como um QA pensa?</b><span>Testo permissão permitida, negada, expirada e ausente; também verifico o que fica registrado.</span></div><div class="qa-row"><b>O que testar?</b><span>Autenticação, autorização, validação, mascaramento, rate limit, erros e consistência entre rotas.</span></div></article>
+          <article class="concept-card"><div class="lesson-label">Porta de entrada</div><h3>Gateway</h3><div class="qa-row"><b>O que é?</b><span>Uma porta de entrada controlada entre uma aplicação e outros serviços.</span></div><div class="qa-row"><b>Para que serve?</b><span>Para centralizar roteamento, controle de acesso, limites de uso, políticas e monitoramento.</span></div><div class="qa-row"><b>Exemplo simples</b><span>Encaminhar uma solicitação para o serviço correto e rejeitar excesso de chamadas.</span></div><div class="qa-row"><b>Onde pode falhar?</b><span>Rota errada, timeout, limite mal configurado, bypass de política ou resposta incompatível.</span></div><div class="qa-row"><b>Como um QA pensa?</b><span>Verifico o contrato na entrada e na saída, sem assumir que o gateway corrigirá uma regra ausente.</span></div><div class="qa-row"><b>O que testar?</b><span>Rotas, autenticação, limites, headers, timeout, retries, códigos de erro e observabilidade.</span></div></article>
+        </div>
+      </section>
+
+      <section id="bedrock-lesson">
+        <div class="sec-head"><div class="sec-eyebrow">07 — Amazon Bedrock</div><h2>Um serviço real explicado sem conexão nesta página</h2><p class="sec-desc">Amazon Bedrock é um serviço gerenciado da AWS para acessar foundation models. Aqui ele é apenas assunto de estudo.</p></div>
+        <div class="concept-grid concept-grid-3">
+          <article class="lesson-card"><div class="lesson-label">Serviço</div><h3>Onde ele entra?</h3><p><b>O que é?</b> Uma camada de serviço que pode oferecer acesso gerenciado a modelos de fundação.</p><p><b>Para que serve?</b> Para construir e escalar aplicações de IA em uma arquitetura real.</p><p><b>Exemplo simples</b> Uma equipe compara modelos para escolher um que atenda ao caso de uso.</p><p><b>O que um QA observa?</b> Contrato de entrada, saída, permissões, disponibilidade, custo e comportamento do modelo.</p></article>
+          <article class="lesson-card"><div class="lesson-label">Experimentação</div><h3>Playground</h3><p><b>O que é?</b> Uma interface da console da AWS para experimentar inferência com modelos.</p><p><b>Para que serve?</b> Para comparar prompts, modelos e configurações antes de uma implementação.</p><p><b>Exemplo simples</b> Usar a mesma pergunta em duas configurações e registrar diferenças de resposta.</p><p><b>Limite importante:</b> experimentar no Playground não comprova que a aplicação final funcionará igual.</p></article>
+          <article class="lesson-card"><div class="lesson-label">Configuração</div><h3>O que observar</h3><p><b>Contexto:</b> quanto de informação acompanha a entrada.</p><p><b>Limite de resposta:</b> quanto o modelo pode gerar.</p><p><b>Formato esperado:</b> texto, estrutura ou campos que o sistema precisa interpretar.</p><p><b>Parâmetros:</b> temperatura, Top K e Top P podem influenciar variedade; valores e faixas dependem do modelo.</p></article>
+        </div>
+        <div class="callout conceptual-note"><b>Sem integração:</b> a página não acessa a AWS, não abre Playground, não escolhe modelos e não faz chamadas de inferência. Os exemplos são instruções conceituais.</div>
+      </section>
+
+      <section id="observability-lesson">
+        <div class="sec-head"><div class="sec-eyebrow">08 — Observabilidade e evidência</div><h2>Entender o que aconteceu depois da solicitação</h2><p class="sec-desc">Observabilidade é acompanhar sinais do sistema para investigar comportamento, qualidade e risco.</p></div>
+        <div class="concept-grid concept-grid-2">
+          <article class="concept-card"><div class="lesson-label">Conceito</div><h3>Observabilidade</h3><div class="qa-row"><b>O que é?</b><span>É a capacidade de entender o comportamento de um sistema a partir dos sinais que ele registra.</span></div><div class="qa-row"><b>Para que serve?</b><span>Para investigar incidentes, identificar desvios e acompanhar qualidade ao longo do tempo.</span></div><div class="qa-row"><b>Exemplo simples</b><span>Relacionar uma pergunta, o tempo de resposta, um erro, a fonte usada e o resultado exibido.</span></div><div class="qa-row"><b>Onde pode falhar?</b><span>Logs sem correlação, métricas sem contexto, dados sensíveis expostos ou ausência de retenção adequada.</span></div><div class="qa-row"><b>Como um QA pensa?</b><span>Defino quais sinais permitem reproduzir e explicar uma falha sem coletar dados desnecessários.</span></div><div class="qa-row"><b>O que testar?</b><span>Tempo, erros, qualidade, falhas de integração, custo, volume, comportamento inesperado e privacidade.</span></div></article>
+          <article class="lesson-card"><div class="lesson-label">Regra documental</div><h3>Fonte, OCR, revisão e GAP</h3><p><b>Preserve a fonte:</b> mantenha o documento original e identifique de onde veio cada evidência.</p><p><b>Use OCR como auxiliar:</b> texto extraído de imagem deve ser conferido, pois pode conter erros.</p><p><b>Peça revisão humana:</b> quando a confiança for baixa, a decisão não deve ser automatizada por suposição.</p><p><b>Registre GAP:</b> quando não houver evidência suficiente, informe a lacuna e o próximo passo; não invente uma conclusão.</p></article>
+        </div>
+      </section>
+
+      <section id="playwright-lesson">
+        <div class="sec-head"><div class="sec-eyebrow">09 — Playwright e testes de interface</div><h2>Testar o que a pessoa vê e faz</h2><p class="sec-desc">Playwright pode automatizar testes end-to-end de aplicações web. Ele também é apenas tema educativo nesta página.</p></div>
+        <div class="concept-grid concept-grid-2">
+          <article class="concept-card"><div class="lesson-label">Ferramenta de teste</div><h3>Playwright</h3><div class="qa-row"><b>O que é?</b><span>Um framework de testes end-to-end para aplicações web, com ações, asserções, isolamento e suporte a navegadores.</span></div><div class="qa-row"><b>Para que serve?</b><span>Para verificar fluxos de interface em navegadores como Chromium, Firefox e WebKit.</span></div><div class="qa-row"><b>Exemplo simples</b><span>Abrir uma tela, preencher um campo, clicar em enviar e verificar uma mensagem.</span></div><div class="qa-row"><b>Onde pode falhar?</b><span>Seletor frágil, espera inadequada, ambiente instável, dados de teste ruins ou fluxo não representativo.</span></div><div class="qa-row"><b>Como um QA pensa?</b><span>Escolho o comportamento visível e uma evidência objetiva, sem testar detalhes internos desnecessários.</span></div><div class="qa-row"><b>O que testar?</b><span>Carregamento, envio, validação, erro, acessibilidade, responsividade e comportamento em navegadores.</span></div></article>
+          <article class="lesson-card"><div class="lesson-label">Limite da ferramenta</div><h3>Interface não é verdade da IA</h3><p>Um teste pode comprovar que uma mensagem apareceu na tela, mas não que o conteúdo está correto.</p><ol class="step-list"><li>Valide o elemento e a interação.</li><li>Valide a mensagem de erro esperada.</li><li>Compare a resposta com um critério ou fonte.</li><li>Registre o navegador e o ambiente.</li></ol><div class="callout"><b>Playwright testa comportamento da aplicação; não garante sozinho a correção da resposta gerada.</b></div></article>
+        </div>
+      </section>
+
+      <section id="project-thinking">
+        <div class="sec-head"><div class="sec-eyebrow">10 — Visão prática de projeto</div><h2>Pense antes de construir</h2><p class="sec-desc">Uma boa estratégia começa pelo problema e pela evidência, não pela escolha de uma tecnologia.</p></div>
+        <div class="question-grid"><div><b>Qual problema será resolvido?</b><span>Defina usuário, contexto e resultado útil.</span></div><div><b>Que dados serão utilizados?</b><span>Identifique fonte, qualidade, acesso e proteção.</span></div><div><b>Como medir qualidade?</b><span>Escolha critérios observáveis antes de testar.</span></div><div><b>Como testar?</b><span>Combine casos normais, limites, erros e segurança.</span></div><div><b>Como observar?</b><span>Planeje sinais suficientes para investigar sem excesso de dados.</span></div><div><b>Quais riscos existem?</b><span>Registre incertezas, revisão humana e GAPs.</span></div></div>
+      </section>
+
+      <div class="learning-reference-note"><b>Nota de escopo:</b> as seções acima são material didático. O produto continua local, estático e independente de IA, APIs, backend, banco, autenticação e serviços externos.</div>
+
       <!-- GLOSSÁRIO INTERATIVO -->
       <section id="glossary" class="section-no-border">
         <div class="sec-head">
-          <div class="sec-eyebrow">00 — Glossário Técnico & Conceitual</div>
+          <div class="sec-eyebrow">11 — Glossário Técnico & Conceitual</div>
           <h2>Clique em cada termo pra ver a definição</h2>
           <p class="sec-desc">
             Termos essenciais cobrindo arquitetura, comportamento e métricas de
@@ -182,7 +371,7 @@
       <!-- AS 4 PEÇAS DE DECISÃO -->
       <section id="layers">
         <div class="sec-head">
-          <div class="sec-eyebrow">01 — As quatro peças centrais</div>
+          <div class="sec-eyebrow">12 — As quatro peças centrais</div>
           <h2>Cada uma resolve um problema diferente</h2>
           <p class="sec-desc">
             Um sintoma idêntico ("a IA errou") pode ter origem em qualquer uma
@@ -307,7 +496,7 @@
       <section id="pipeline">
         <div class="sec-head">
           <div class="sec-eyebrow">
-            02 — Metodologia de Garantia de Qualidade
+            13 — Metodologia de Garantia de Qualidade
           </div>
           <h2>Pipeline de Testes em Cinco Camadas</h2>
           <p class="sec-desc">
@@ -362,7 +551,7 @@
       <!-- ARQUITETURA E JORNADA -->
       <section id="arch">
         <div class="sec-head">
-          <div class="sec-eyebrow">03 — Arquitetura da Solução</div>
+          <div class="sec-eyebrow">14 — Arquitetura da Solução</div>
           <h2>Front-end vs. Back-end</h2>
           <p class="sec-desc">
             Exemplo conceitual: em um sistema integrado, o processamento analítico e
@@ -395,7 +584,7 @@
       <!-- PAINEL DE TRIAGEM -->
       <section id="triage">
         <div class="sec-head">
-          <div class="sec-eyebrow">04 — Diagnóstico Prático</div>
+          <div class="sec-eyebrow">15 — Diagnóstico Prático</div>
           <h2>Painel de Triagem de Problemas</h2>
           <p class="sec-desc">
             Identifique rapidamente a origem de um incidente com base no
@@ -500,7 +689,7 @@
       <!-- SEÇÃO DE PRÁTICA INTERATIVA -->
       <section id="practice">
         <div class="sec-head">
-          <div class="sec-eyebrow">05 — Validação de Aprendizado</div>
+          <div class="sec-eyebrow">16 — Validação de Aprendizado</div>
           <h2>Pratique seus conhecimentos de QA</h2>
           <p class="sec-desc">
             Teste rápido com questões de verdadeiro/falso e cenários práticos de

@@ -64,6 +64,18 @@ test('placar e feedback são anunciáveis', () => {
   assert.match(js, /bumpScore\(isCorrect\)/);
 });
 
+test('a trilha educativa contém os tópicos prometidos', () => {
+  for (const id of ['learning-path', 'fundamentals', 'chatbot-flow', 'prompt-testing', 'rag-lesson', 'mcp-tools', 'middleware-gateway', 'bedrock-lesson', 'observability-lesson', 'playwright-lesson', 'project-thinking']) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+  for (const phrase of ['IA generativa', 'resposta plausível', 'Gateway', 'Amazon Bedrock', 'Playground', 'Observabilidade', 'Playwright', 'revisão humana', 'GAP']) {
+    assert.match(html, new RegExp(phrase, 'i'));
+  }
+  for (const [, target] of html.matchAll(/<a href="#([^"]+)"/g)) {
+    assert.match(html, new RegExp(`id="${target}"`));
+  }
+});
+
 test('produto não simula integrações que não existem', () => {
   assert.doesNotMatch(html, /\[cite:\s*\d+\]/);
   assert.doesNotMatch(html, /fetch\(|XMLHttpRequest|WebSocket|EventSource/);
