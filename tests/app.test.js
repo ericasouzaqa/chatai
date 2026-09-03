@@ -54,8 +54,8 @@ test('triagem aponta somente para veredictos existentes', () => {
 test('questões possuem resposta válida e controles não submetem formulários', () => {
   const quizAnswers = matches(/data-answer="([^"]+)"/g);
   const quizGroups = html.match(/<div class="quiz-opts"[^>]*>/g) || [];
-  assert.equal(quizGroups.length, 4);
-  quizGroups.forEach((group) => assert.match(group, /data-answer="(?:prompt|rag|mcp|tool|front|unsure)"/));
+  assert.equal(quizGroups.length, 6);
+  quizGroups.forEach((group) => assert.match(group, /data-answer="(?:prompt|rag|mcp|tool|front|unsure|splitter|metadata)"/));
   quizAnswers.forEach((answer) => assert.ok(answer.length > 0));
   assert.equal((html.match(/<button(?! type="button")/g) || []).length, 0);
 });
@@ -127,7 +127,7 @@ test('novos controles permanecem locais e acessíveis', () => {
 test('versão e documentação refletem a evolução', () => {
   const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
-  assert.equal(packageJson.version, '1.3.0');
+  assert.equal(packageJson.version, '1.4.0');
   assert.match(packageJson.description, /sistemas web e IA/i);
   assert.match(readme, /Chrome DevTools/);
   assert.match(readme, /Fundamentos de QA/);
@@ -262,8 +262,8 @@ test('o fluxo inicial aparece no índice em ordem', () => {
 });
 
  test('a versão visual e a versão do pacote estão alinhadas', () => {
-  assert.match(html, /v1\.3\.0/);
-  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.3\.0"/);
+  assert.match(html, /v1\.4\.0/);
+  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.4\.0"/);
 });
 
  test('a nova trilha usa somente âncoras locais', () => {
@@ -338,5 +338,100 @@ test('o fluxo inicial aparece no índice em ordem', () => {
 });
 
  test('não foi criado arquivo temporário de migração', () => {
+  assert.equal(fs.existsSync(path.join(root, 'update_guide.py')), false);
+});
+
+
+test('a trilha aprofundada cobre escalabilidade, vetores, chunks, LangChain e RAG', () => {
+  for (const id of ['architecture-at-scale', 'vector-foundations', 'rag-deep-dive', 'langchain-lesson']) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+  for (const phrase of ['Escalabilidade horizontal', 'Embedding', 'Base vetorial', 'Chunk', 'LangChain', 'Indexação', 'Retrieval', 'Augmentation']) {
+    assert.match(html, new RegExp(phrase, 'i'));
+  }
+});
+
+test('a trilha de custos cobre Bedrock, tokens, caching e atribuição', () => {
+  assert.match(html, /id="bedrock-costs"/);
+  for (const phrase of ['Amazon Bedrock', 'tokens', 'Prompt caching', 'modelo adequado', 'Cost Explorer', 'Budgets', 'request metadata']) {
+    assert.match(html, new RegExp(phrase, 'i'));
+  }
+});
+
+test('a trilha do Twilio explica Sandbox sem torná-lo dependência', () => {
+  assert.match(html, /id="twilio-sandbox"/);
+  assert.match(html, /twilio\.com\/docs\/whatsapp\/sandbox/);
+  assert.match(html, /join &lt;seu código&gt;/);
+  assert.match(html, /mockTwilio\.send/);
+  assert.match(html, /não envia mensagens/);
+  assert.doesNotMatch(js, /twilio|Account SID|Auth Token/i);
+});
+
+test('a oficina separa decisões de PO e evidências do testador', () => {
+  assert.match(html, /id="po-tester-workshop"/);
+  assert.match(html, /Para o PO/);
+  assert.match(html, /Para o testador/);
+  assert.match(html, /Desafio final/);
+});
+
+test('as referências adicionais apontam para documentação oficial e livro recomendado', () => {
+  assert.match(html, /AWS horizontal scaling/);
+  assert.match(html, /Amazon Bedrock Cost Optimization/);
+  assert.match(html, /LangChain text splitters/);
+  assert.match(html, /Twilio Sandbox para WhatsApp/);
+  assert.match(html, /LLMs: As Partes Difíceis de Entender/);
+  assert.match(html, /Tarsis TP Souza/);
+  assert.match(html, /Jonathan K\. Regêncio Junior/);
+});
+
+test('o novo conteúdo não introduz runtime externo', () => {
+  assert.doesNotMatch(html, /<script[^>]+https?:/i);
+  assert.doesNotMatch(html, /<iframe|<img[^>]+https?:/i);
+  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|WebSocket|EventSource|localStorage|sessionStorage|document\.cookie/);
+  assert.doesNotMatch(css, /@import|url\s*\(/);
+});
+
+test('a versão da ampliação está alinhada no HTML e no package', () => {
+  assert.match(html, /v1\.4\.0/);
+  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.4\.0"/);
+});
+
+test('os links externos são somente referências clicáveis', () => {
+  const referenceLinks = [...html.matchAll(/<a href="(https?:\/\/[^\"]+)"/g)].map((match) => match[1]);
+  assert.ok(referenceLinks.some((url) => url.includes('twilio.com')));
+  assert.ok(referenceLinks.some((url) => url.includes('aws.amazon.com')));
+  assert.ok(referenceLinks.some((url) => url.includes('langchain.com')));
+  assert.doesNotMatch(js, /https?:\/\//);
+});
+
+ test('o conteúdo reforça que o livro foi traduzido didaticamente sem reprodução integral', () => {
+  assert.match(html, /explicação original para estudo/);
+  assert.match(html, /não reproduz nem traduz integralmente/);
+});
+
+ test('os novos exercícios reutilizam o motor local de score', () => {
+  assert.ok((html.match(/class="tf-card"/g) || []).length >= 6);
+  assert.ok((html.match(/class="quiz-opts"/g) || []).length >= 6);
+  assert.match(js, /querySelectorAll\('\.tf-card'\)/);
+  assert.match(js, /querySelectorAll\('\.quiz-opts'\)/);
+});
+
+ test('o projeto mantém o modo offline documentado após a ampliação', () => {
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  assert.match(readme, /não há dependências de runtime/);
+  assert.match(readme, /não enviam mensagens nem chamam modelos/);
+  assert.match(readme, /Twilio Sandbox/);
+  assert.match(readme, /LangChain/);
+});
+
+ test('a nova trilha possui links locais no índice', () => {
+  const pathSection = html.match(/id="learning-path"[\s\S]*?<\/section>/)?.[0] || '';
+  for (const id of ['architecture-at-scale', 'vector-foundations', 'rag-deep-dive', 'langchain-lesson', 'bedrock-costs', 'twilio-sandbox', 'po-tester-workshop']) {
+    assert.match(pathSection, new RegExp(`href="#${id}"`));
+  }
+});
+
+ test('não ficou script de migração no repositório', () => {
+  assert.equal(fs.existsSync(path.join(root, 'update_learning_content.py')), false);
   assert.equal(fs.existsSync(path.join(root, 'update_guide.py')), false);
 });

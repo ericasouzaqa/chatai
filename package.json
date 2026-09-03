@@ -1,6 +1,6 @@
 {
   "name": "chatai-qa-guide",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "Guia educativo estático de QA para sistemas web e IA",
   "scripts": {

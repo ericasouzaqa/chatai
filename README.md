@@ -25,6 +25,17 @@ A sequência também diferencia uma resposta plausível de uma resposta correta,
 | 09 | Middleware e Gateway |
 | 10 | Amazon Bedrock, Playground e parâmetros de inferência |
 | 11–13 | Observabilidade, Playwright, estratégia de QA, glossário, triagem e exercícios interativos |
+| 14 | Escalabilidade horizontal, vetores, embeddings e chunks |
+| 15 | RAG aprofundado, LangChain e contratos de retrieval |
+| 16 | Amazon Bedrock, custos, tokens, caching, roteamento e atribuição |
+| 17 | Twilio Sandbox, mocks, stubs e prevenção de consumo acidental |
+| 18 | Oficina integrada para PO e testador |
+
+## Novos módulos aprofundados
+
+A trilha foi ampliada com escalabilidade horizontal, estado em múltiplas instâncias, embeddings, chunks, bases vetoriais, LangChain, RAG em três fases, estratégias de custo no Amazon Bedrock, configuração conceitual do Twilio Sandbox e uma oficina comparando as perguntas de PO e testador. Os exercícios são locais, determinísticos e não enviam mensagens nem chamam modelos.
+
+As recomendações de custo são didáticas e devem ser confirmadas na documentação e no preço vigente de cada região. O Sandbox da Twilio é tratado como ambiente de teste, não como produção gratuita: exige adesão do número, possui limitações e pode gerar cobrança conforme a política do serviço.
 
 ## Interações existentes
 
@@ -81,3 +92,15 @@ A página não carrega essas referências automaticamente; os links servem apena
 ## Licença
 
 Este projeto é distribuído sob a [Licença MIT](license.txt).
+
+
+### Referências adicionais
+
+- [AWS Well-Architected — Horizontal scaling](https://wa.aws.amazon.com/wellarchitected/2020-07-02T19-33-23/wat.concept.horizontal-scaling.en.html)
+- [Amazon Bedrock — Cost Optimization](https://aws.amazon.com/bedrock/cost-optimization/)
+- [Amazon Bedrock — Track usage and costs](https://docs.aws.amazon.com/bedrock/latest/userguide/cost-management.html)
+- [LangChain — Text splitters](https://docs.langchain.com/oss/python/integrations/splitters)
+- [LangChain — Embeddings](https://docs.langchain.com/oss/python/integrations/embeddings)
+- [LangChain — Vector stores](https://docs.langchain.com/oss/python/integrations/vectorstores)
+- [Twilio — WhatsApp Sandbox](https://www.twilio.com/docs/whatsapp/sandbox)
+- Referência bibliográfica indicada: *LLMs: As Partes Difíceis de Entender*, Tarsis TP Souza e Jonathan K. Regêncio Junior.
