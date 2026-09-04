@@ -31,6 +31,10 @@ A sequência também diferencia uma resposta plausível de uma resposta correta,
 | 17 | Twilio Sandbox, mocks, stubs e prevenção de consumo acidental |
 | 18 | Oficina integrada para PO e testador |
 
+## Camada de aprendizagem para leigos
+
+Antes dos conceitos avançados, a página apresenta uma analogia de restaurante: o site é o salão, a API é o garçom, o servidor é a cozinha e o banco de dados é o caderno de pedidos. Depois, cada termo recebe uma tradução simples, uma pergunta de QA e um exercício de contar o caminho de um botão. A intenção é permitir que uma pessoa sem experiência construa primeiro uma imagem mental e só depois aprenda os nomes técnicos.
+
 ## Novos módulos aprofundados
 
 A trilha foi ampliada com escalabilidade horizontal, estado em múltiplas instâncias, embeddings, chunks, bases vetoriais, LangChain, RAG em três fases, estratégias de custo no Amazon Bedrock, configuração conceitual do Twilio Sandbox e uma oficina comparando as perguntas de PO e testador. Os exercícios são locais, determinísticos e não enviam mensagens nem chamam modelos.

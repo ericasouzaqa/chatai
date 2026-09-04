@@ -127,7 +127,7 @@ test('novos controles permanecem locais e acessíveis', () => {
 test('versão e documentação refletem a evolução', () => {
   const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
-  assert.equal(packageJson.version, '1.4.0');
+  assert.equal(packageJson.version, '1.4.1');
   assert.match(packageJson.description, /sistemas web e IA/i);
   assert.match(readme, /Chrome DevTools/);
   assert.match(readme, /Fundamentos de QA/);
@@ -262,8 +262,8 @@ test('o fluxo inicial aparece no índice em ordem', () => {
 });
 
  test('a versão visual e a versão do pacote estão alinhadas', () => {
-  assert.match(html, /v1\.4\.0/);
-  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.4\.0"/);
+  assert.match(html, /v1\.4\.1/);
+  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.4\.1"/);
 });
 
  test('a nova trilha usa somente âncoras locais', () => {
@@ -392,8 +392,8 @@ test('o novo conteúdo não introduz runtime externo', () => {
 });
 
 test('a versão da ampliação está alinhada no HTML e no package', () => {
-  assert.match(html, /v1\.4\.0/);
-  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.4\.0"/);
+  assert.match(html, /v1\.4\.1/);
+  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.4\.1"/);
 });
 
 test('os links externos são somente referências clicáveis', () => {
@@ -434,4 +434,31 @@ test('os links externos são somente referências clicáveis', () => {
  test('não ficou script de migração no repositório', () => {
   assert.equal(fs.existsSync(path.join(root, 'update_learning_content.py')), false);
   assert.equal(fs.existsSync(path.join(root, 'update_guide.py')), false);
+});
+
+
+test('a camada para iniciantes começa por analogias e passos compreensíveis', () => {
+  assert.match(html, /id="beginner-compass"/);
+  assert.match(html, /O site é o salão/);
+  assert.match(html, /A API é o garçom/);
+  assert.match(html, /O banco é o caderno/);
+  assert.match(html, /o que é\?/i);
+  assert.match(html, /para que serve\?/i);
+  assert.match(html, /qual é um exemplo de verdade\?/i);
+  assert.match(html, /como eu provaria que funcionou\?/i);
+  assert.match(html, /Você não precisa decorar/);
+});
+
+test('o índice coloca a preparação antes dos fundamentos', () => {
+  assert.ok(html.indexOf('href="#beginner-compass"') < html.indexOf('href="#qa-fundamentals"'));
+  assert.ok(html.indexOf('id="beginner-compass"') < html.indexOf('id="qa-fundamentals"'));
+});
+
+test('a versão 1.4.1 documenta a camada para leigos', () => {
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  assert.match(readme, /Camada de aprendizagem para leigos/);
+  assert.match(readme, /analogia de restaurante/);
+  assert.match(readme, /imagem mental/);
+  assert.match(html, /v1\.4\.1/);
+  assert.match(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), /"version": "1\.4\.1"/);
 });
